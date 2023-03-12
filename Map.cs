@@ -20,8 +20,8 @@ public class Map
 	/* Validator */
 	public bool isUpValid(Vertex point, char[,] map)
 	{
-		if (point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY && point.x + MoveX[0] >= 0 && point.y + MoveY[0] >= 0){
-			return (map[point.y-MoveY[0],point.x+MoveX[0]] != 'X');
+		if (point.y + MoveY[0] < MapY && point.y + MoveY[0] >= 0){
+			return (map[point.y+MoveY[0],point.x] != 'X');
 		} else {
 			return false;
 		}
@@ -29,23 +29,23 @@ public class Map
 
 	public bool isDownValid(Vertex point, char[,] map)
 	{
-		if (point.x + MoveX[2] <= MapX && point.y + MoveY[2] <= MapY && point.x + MoveX[2] >= 0 && point.y + MoveY[2] >= 0){
-			return (map[point.y + MoveY[2],point.x + MoveX[2]] != 'X');
+		if (point.y + MoveY[2] < MapY && point.y + MoveY[2] >= 0){
+			return (map[point.y + MoveY[2],point.x] != 'X');
 		} else {
 			return false;
 		}
 	}	
 	public bool isRightValid(Vertex point, char[,] map)
 	{
-		if (point.x + MoveX[1] <= MapX && point.y + MoveY[1] <= MapY && point.x + MoveX[1] >= 0 && point.y + MoveY[1] >= 0){
-			return (map[point.y + MoveY[1],point.x + MoveX[1]] != 'X');
+		if (point.x + MoveX[1] < MapX && point.x + MoveX[1] >= 0){
+			return (map[point.y,point.x + MoveX[1]] != 'X');
 		} else {
 			return false;
 		}	}
 	public bool isLeftValid(Vertex point, char[,] map)
 	{
-		if (point.x + MoveX[3] <= MapX && point.y + MoveY[3] <= MapY && point.x + MoveX[3] >= 0 && point.y + MoveY[3] >= 0){
-			return (map[point.y + MoveY[3],point.x + MoveX[3]] != 'X');
+		if (point.x + MoveX[3] < MapX && point.x + MoveX[3] >= 0){
+			return (map[point.y,point.x + MoveX[3]] != 'X');
 		} else {
 			return false;
 		}

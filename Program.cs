@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 Map m = new Map("config.txt");
-Vertex p = new Vertex(3, 3, false, false);
+Vertex p = new Vertex(2, 0, false, false);
 if (m.isDownValid(p, m.getMap())){
     Console.Write("Down is valid\n");
 }

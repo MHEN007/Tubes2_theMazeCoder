@@ -8,7 +8,7 @@ public class Vertex
 	public int x;
 	public int y;
 
-	/* isTreasure menandakan peta: default false;
+	/* isTreasure menandakan treasure: default false;
 	 * isAvailable menandakan apakah vertex dapat diinjak: default false
 	 */
 	private bool IsTreasure;

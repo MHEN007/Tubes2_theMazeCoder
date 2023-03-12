@@ -20,7 +20,7 @@ public class Map
 	/* Validator */
 	bool isUpValid(Vertex point, char[][] map)
 	{
-		if(map[point.y+MoveY[0]][point.x+MoveX[0]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY){ 
+		if(map[point.y+MoveY[0],point.x+MoveX[0]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY){ 
 			return true; 
 		} else { 
 			return false; 
@@ -29,15 +29,15 @@ public class Map
 
 	bool isDownValid(Vertex point, char[][] map)
 	{
-		if(map[point.y+MoveY[2]][point.x+MoveX[2]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY ){ return true; } else { return false; }
+		if(map[point.y+MoveY[2],point.x+MoveX[2]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY ){ return true; } else { return false; }
 	}
 	bool isRightValid(Vertex point, char[][] map)
 	{
-		if(map[point.y+MoveY[1]][point.x+MoveX[1]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY ){ return true; } else { return false; }
+		if(map[point.y+MoveY[1],point.x+MoveX[1]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY ){ return true; } else { return false; }
 	}
 	bool isLeftValid(Vertex point, char[][] map)
 	{
-		if(map[point.y+MoveY[0]][point.x+MoveX[0]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY ){ return true; } else { return false; }
+		if(map[point.y+MoveY[0],point.x+MoveX[0]] != 'X' && point.x + MoveX[0] <= MapX && point.y + MoveY[0] <= MapY ){ return true; } else { return false; }
 	}
 
 	public Map()
@@ -49,6 +49,7 @@ public class Map
 	/* Baca Peta dari sebuah file */
 	public Map(string file)
 	{
+		/* Hitung baris kolom */
 		string[] lines = System.IO.File.ReadAllLines(file);
 		int county = 0;
 		int countx = 1;
@@ -66,7 +67,8 @@ public class Map
 		}
 		MapX = countx;
 		MapY = county;
-		Console.WriteLine(MapX);
-		Console.WriteLine(MapY);
+		
+		/* Masukin ke Matrixnya */
+
 	}
 }

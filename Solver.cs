@@ -68,7 +68,53 @@ public class Solver
 
 	public void BFS()
 	{
+		Queue<Vertex> queue = new Queue<Vertex>();
+		Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
 
-	}
+		Map m = new Map("config.txt");
+        int treasureCount = m.getTreasureCount();
+        int treasureFound = 0;
+        Vertex start = m.getStartingPoint(m.getMap());
+        queue.Enqueue(start);
+        int c = 0;
+
+		while (queue.Count > 0 && treasureCount != treasureFound)
+		{
+			c++;
+			Vertex current = queue.Dequeue();
+			AlreadyVisited.Push(current);
+            Console.WriteLine(c + "\nX: " + current.x + " Y: " + current.y);
+            if (current.GetStatusTreasure())
+            {
+                treasureFound++;
+                Console.Write("Treasure found at " + current.x + " " + current.y + "\n");
+            }
+            if (m.isDownValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y + 1)))
+            {
+                Vertex down = m.getVertex(current.x, current.y + 1);
+                queue.Enqueue(down);
+                Console.Write("Going down\n");
+            }
+            if (m.isRightValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x + 1, current.y)))
+            {
+                Vertex right = m.getVertex(current.x + 1, current.y);
+                queue.Enqueue(right);
+                Console.Write("Going right\n");
+            }
+            if (m.isLeftValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x - 1, current.y)))
+            {
+                Vertex left = m.getVertex(current.x - 1, current.y);
+                queue.Enqueue(left);
+                Console.Write("Going left\n");
+            }
+            if (m.isUpValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y - 1)))
+            {
+                Vertex up = m.getVertex(current.x, current.y - 1);
+                queue.Enqueue(up);
+                Console.Write("Going up\n");
+            }
+        }
+
+    }
 	
 }

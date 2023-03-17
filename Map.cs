@@ -3,8 +3,8 @@
 public class Map
 {
 	/* Ukuran Peta: x dan y */
-	public static int MapX, MapY;
-	public static int treasureCount = 0;
+	public int MapX, MapY;
+	public int treasureCount = 0;
 
 	/* Gerakan yang mungkin
 	 * Up, Right, Down, Left */
@@ -12,7 +12,7 @@ public class Map
 	int[] MoveY = { -1, 0, 1, 0 };
 
 	/* Ini buat DFS BFS */
-	Vertex[] Buffer;
+	Vertex[,] Buffer;
 	char[,] map;
 
 	/* MAP Matrix of what */
@@ -21,8 +21,8 @@ public class Map
 	/* Validator */
 	public bool isUpValid(Vertex point, char[,] map)
 	{
-		if (point.y + MoveY[0] < MapY && point.y + MoveY[0] >= 0){
-			return (map[point.y+MoveY[0],point.x] != 'X');
+		if (point.getX() - 1 < MapX && point.getX() - 1 >= 0){
+			return (map[point.getX() - 1, point.getY()] != 'X');
 		} else {
 			return false;
 		}
@@ -30,23 +30,24 @@ public class Map
 
 	public bool isDownValid(Vertex point, char[,] map)
 	{
-		if (point.y + MoveY[2] < MapY && point.y + MoveY[2] >= 0){
-			return (map[point.y + MoveY[2],point.x] != 'X');
+		if (point.getX() + 1 < MapX && point.getX() + 1 >= 0){
+			return (map[point.getX() + 1, point.getY()] != 'X');
 		} else {
 			return false;
 		}
 	}	
 	public bool isRightValid(Vertex point, char[,] map)
 	{
-		if (point.x + MoveX[1] < MapX && point.x + MoveX[1] >= 0){
-			return (map[point.y,point.x + MoveX[1]] != 'X');
+		if (point.getX() + 1 < MapY && point.getY() + 1 >= 0){
+			return (map[point.getX(), point.getY() + 1] != 'X');
 		} else {
 			return false;
-		}	}
+		}	
+	}
 	public bool isLeftValid(Vertex point, char[,] map)
 	{
-		if (point.x + MoveX[3] < MapX && point.x + MoveX[3] >= 0){
-			return (map[point.y,point.x + MoveX[3]] != 'X');
+		if (point.getY() - 1 < MapY && point.getY() - 1 >= 0){
+			return (map[point.getX(), point.getY() - 1] != 'X');
 		} else {
 			return false;
 		}
@@ -55,15 +56,15 @@ public class Map
 
 	public bool isStartingPoint(Vertex point, char[,] map)
 	{
-		return (map[point.y,point.x] == 'K');
+		return (map[point.getY(),point.getX()] == 'K');
 	}
 
 	public Vertex getStartingPoint (char[,] map)
 	{
-		for (int i = 0; i < MapY; i++){
-			for (int j = 0; j < MapX; j++){
+		for (int i = 0; i < MapX; i++){
+			for (int j = 0; j < MapY; j++){
 				if (map[i,j] == 'K'){
-					return new Vertex(j, i, false, true);
+					return new Vertex(i, j, false, true);
 				}
 			}
 		}
@@ -75,7 +76,7 @@ public class Map
 		MapX = 0;
 		MapY = 0;
 		map = new char[MapY, MapX];
-		Buffer = new Vertex[MapX * MapY];
+		Buffer = new Vertex[MapY, MapX];
 	}
 	
 	public int getTreasureCount()
@@ -85,25 +86,26 @@ public class Map
 	public Map(string file)
 	{
 		string[] lines = System.IO.File.ReadAllLines(file);
-		int countY = 0;
-		int countX = 1;
+		int countX = 0;
+		int countY = 1;
 		foreach(string line in lines){
-			countY++;
+			countX++;
 
-			if(countY == 1){
+			if(countX == 1){
 				foreach(char word in line){
 					if(word == ' '){
-						countX++;
+						countY++;
 					}
 				}
 			}
 
 		}
-		MapX = countX;
 		MapY = countY;
+		MapX = countX;
+		Console.WriteLine("X: {0}, Y: {1}", MapX, MapY);
 
-		map = new char[countY, countX];
-		for (int y = 0; y < countY; y++)
+		map = new char[countX, countY];
+		for (int y = 0; y < countX; y++)
 		{
 			string line = lines[y];
 			int j = 0;
@@ -111,21 +113,23 @@ public class Map
 			{
 				char c = line[x];
 				map[y, j] = c;
+				Console.Write(c + " ");
 				j++;
 			}
+			Console.WriteLine();
 		}
 
-		Buffer = new Vertex[countY * countX];
+		Buffer = new Vertex[MapX , MapY];
 		Console.Write(countX + " " + countY + "\n");
-		for (int i = 0; i < countY; i++){
-			for (int j = 0; j < countX; j++){
+		for (int i = 0; i < countX; i++){
+			for (int j = 0; j < countY; j++){
 				if (map[i,j] == 'X'){
-					Buffer[i * countY + j] = new Vertex(j, i, false, false);
+					Buffer[i,j] = new Vertex(i, j, false, false);
 				} else if (map[i,j] == 'T'){
-					Buffer[i * countY + j] = new Vertex(j, i, true, true);
+					Buffer[i,j] = new Vertex(i, j, true, true);
 					treasureCount++;
 				} else { /* K atau R */
-					Buffer[i * countY + j] = new Vertex(j, i, false, true);
+					Buffer[i,j] = new Vertex(i, j, false, true);
 				}
 			}
 		}
@@ -133,9 +137,9 @@ public class Map
 
 
 		// Print the matrix for testing purposes
-		for (int y = 0; y < countY; y++)
+		for (int y = 0; y < countX; y++)
 		{
-			for (int x = 0; x < countX; x++)
+			for (int x = 0; x < countY; x++)
 			{
 				Console.Write(map[y, x] + " ");
 			}
@@ -151,6 +155,29 @@ public class Map
 
 	public Vertex getVertex(int x, int y)
 	{
-		return Buffer[y * MapY + x];
+		return Buffer[x,y];
+	}
+
+	public Vertex[,] getBuffer()
+	{
+		return Buffer;
+	}
+
+	public void printBuffer()
+	{
+		for (int i = 0; i < MapX; i++){
+			for (int j = 0; j < MapY; j++){
+				Buffer[i,j].print();
+			}
+			Console.Write("\n");
+		}
+	}
+
+	public int getMapX(){
+		return MapX;
+	}
+
+	public int getMapY(){
+		return MapY;
 	}
 }

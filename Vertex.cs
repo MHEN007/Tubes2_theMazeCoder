@@ -5,8 +5,8 @@ public class Vertex
 	/* Attributes */
 
 	/* Koordinat pada Peta */
-	public int x;
-	public int y;
+	private int x;
+	private int y;
 
 	/* isTreasure menandakan treasure: default false;
 	 * isAvailable menandakan apakah vertex dapat diinjak: default false
@@ -22,4 +22,13 @@ public class Vertex
 
 	public bool GetStatusMove() { return IsAvailable; }
 	
+	public int getX() { return x; }
+
+	public int getY() { return y; }
+
+	public void print() {
+		Console.WriteLine("X: {0}, Y: {1}, Treasure: {2}, Available: {3}", x, y, IsTreasure, IsAvailable);
+	}
+
+	public void treasureAlreadyFound() { IsTreasure = false; }
 }

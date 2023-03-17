@@ -1,10 +1,11 @@
 ﻿using System;
+// using System.Thhreading;
 
 public class Solver
 {
 	public Solver() { }
 
-	public void DFS()
+	public async void DFS()
 	{
 		Stack<Vertex> stack = new Stack<Vertex>();
 		Stack<Vertex> alreadyVisited = new Stack<Vertex>();
@@ -15,60 +16,77 @@ public class Solver
 		int treasureCount = m.getTreasureCount();
 		int treasureFound = 0;
 		Vertex start = m.getStartingPoint(m.getMap());
+		Vertex temp;
 		stack.Push(start);
 
+		Vertex current = new Vertex(0, 0, false, false);
 		while (stack.Count != 0 && treasureFound != treasureCount)
 		{
-			Vertex current = stack.Pop();
+			Thread.Sleep(2000);
+		
+			Console.Write("=========================================================\n");
+			current = stack.Pop();
+			if (current.GetStatusTreasure() && !alreadyVisited.Contains(current))
+			{
+				Console.Write("Treasure found!\n");
+				treasureFound++;
+				current.treasureAlreadyFound();
+			}
+			stack.Push(current);
 			alreadyVisited.Push(current);
-			if (m.isDownValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x, current.y + 1)))
+			Console.Write("Current: " + current.getX() + " " + current.getY() + "\n");
+
+			if (m.isDownValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.getX() + 1, current.getY())))
 			{
-				Vertex down = m.getVertex(current.x + 1, current.y);
-				if (down.GetStatusTreasure())
-				{
-					treasureFound++;
-					Console.Write("Treasure found at " + down.x + " " + down.y + "\n");
-				}
+				Vertex down = m.getVertex(current.getX() + 1, current.getY());
 				stack.Push(down);
-				Console.Write("Going down\n");
+				Console.WriteLine("Down: " + down.getX() + " " + down.getY());
+
+				// Console.Write("Going down\n");
 			}
-			if (m.isRightValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x + 1, current.y)))
+			if (m.isRightValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.getX(), current.getY() + 1)))
 			{
-				Vertex right = m.getVertex(current.x + 1, current.y);
-				if (right.GetStatusTreasure())
-				{
-					treasureFound++;
-					Console.Write("Treasure found at " + right.x + " " + right.y + "\n");
-				}
+				Vertex right = m.getVertex(current.getX(), current.getY() + 1);
 				stack.Push(right);
-				Console.Write("Going right\n");
+
+				// Console.Write("Going right\n");
 			}
-			if (m.isLeftValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x - 1, current.y)))
+			if (m.isLeftValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.getX(), current.getY() - 1)))
 			{
-				Vertex left = m.getVertex(current.x - 1, current.y);
-				if (left.GetStatusTreasure())
-				{
-					treasureFound++;
-					Console.Write("Treasure found at " + left.x + " " + left.y + "\n");
-				}
+				Vertex left = m.getVertex(current.getX(), current.getY() - 1);
 				stack.Push(left);
-				Console.Write("Going left\n");
+
+				// Console.Write("Going left\n");
 			}
-			if (m.isUpValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x, current.y - 1)))
+			if (m.isUpValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.getX() - 1, current.getY())))
 			{
-				Vertex up = m.getVertex(current.x, current.y - 1);
-				if (up.GetStatusTreasure())
-				{
-					treasureFound++;
-					Console.Write("Treasure found at " + up.x + " " + up.y + "\n");
-				}
+				Vertex up = m.getVertex(current.getX() - 1, current.getY());
 				stack.Push(up);
+
+				// Console.Write("Going up\n");
+			}
+
+			temp = stack.Pop(); 
+			Console.Write("Temp: " + temp.getX() + " " + temp.getY() + "\n");
+
+			if	(current.getX() + 1 == temp.getX() && current.getY() == temp.getY()){
+				Console.Write("Going down\n");
+				stack.Push(temp);
+			} else if (current.getX() - 1 == temp.getX() && current.getY() == temp.getY()){
 				Console.Write("Going up\n");
-			}
-			if (!m.isDownValid(current, m.getMap()) && !m.isLeftValid(current, m.getMap()) && !m.isRightValid(current, m.getMap()) && !m.isUpValid(current, m.getMap())) {
-				// backtrack
+				stack.Push(temp);
+			} else if (current.getX() == temp.getX() && current.getY() - 1 == temp.getY()){
+				Console.Write("Going left\n");
+				stack.Push(temp);
+			} else if (current.getX() == temp.getX() && current.getY() + 1 == temp.getY()){
+				Console.Write("Going right\n");
+				stack.Push(temp);
+			} else {
 				Console.Write("Backtracking\n");
+				Console.Write("		Current: " + current.getX() + " " + current.getY() + "\n");
+				Console.Write("		Temp: " + temp.getX() + " " + temp.getY() + "\n");
 			}
+				
 
 		}	
 	}

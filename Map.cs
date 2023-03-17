@@ -4,6 +4,7 @@ public class Map
 {
 	/* Ukuran Peta: x dan y */
 	public static int MapX, MapY;
+	public static int treasureCount = 0;
 
 	/* Gerakan yang mungkin
 	 * Up, Right, Down, Left */
@@ -51,6 +52,24 @@ public class Map
 		}
 	}
 
+
+	public bool isStartingPoint(Vertex point, char[,] map)
+	{
+		return (map[point.y,point.x] == 'K');
+	}
+
+	public Vertex getStartingPoint (char[,] map)
+	{
+		for (int i = 0; i < MapY; i++){
+			for (int j = 0; j < MapX; j++){
+				if (map[i,j] == 'K'){
+					return new Vertex(j, i, false, true);
+				}
+			}
+		}
+		return new Vertex(0, 0, false, false);
+	}
+
 	public Map()
 	{
 		MapX = 0;
@@ -59,6 +78,10 @@ public class Map
 		Buffer = new Vertex[MapX * MapY];
 	}
 	
+	public int getTreasureCount()
+	{
+		return treasureCount;
+	}
 	public Map(string file)
 	{
 		string[] lines = System.IO.File.ReadAllLines(file);
@@ -100,6 +123,7 @@ public class Map
 					Buffer[i * countY + j] = new Vertex(i, j, false, false);
 				} else if (map[i,j] == 'T'){
 					Buffer[i * countY + j] = new Vertex(i, j, true, true);
+					treasureCount++;
 				} else { /* K atau R */
 					Buffer[i * countY + j] = new Vertex(i, j, false, true);
 				}
@@ -117,10 +141,16 @@ public class Map
 			}
 			Console.WriteLine();
 		}
+		Console.Write("Treasure Count: " + treasureCount + "\n");
 	}
 
 	public char[,] getMap()
 	{
 		return map;
+	}
+
+	public Vertex getVertex(int x, int y)
+	{
+		return Buffer[y * MapY + x];
 	}
 }

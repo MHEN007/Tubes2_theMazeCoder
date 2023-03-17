@@ -12,7 +12,7 @@ public class Map
 	int[] MoveY = { -1, 0, 1, 0 };
 
 	/* Ini buat DFS BFS */
-	Vertex[] Buffer;
+	Vertex[,] Buffer;
 	char[,] map;
 
 	/* MAP Matrix of what */
@@ -75,7 +75,7 @@ public class Map
 		MapX = 0;
 		MapY = 0;
 		map = new char[MapY, MapX];
-		Buffer = new Vertex[MapX * MapY];
+		Buffer = new Vertex[MapY,MapX];
 	}
 	
 	public int getTreasureCount()
@@ -115,17 +115,17 @@ public class Map
 			}
 		}
 
-		Buffer = new Vertex[countY * countX];
+		Buffer = new Vertex[countY,countX];
 		Console.Write(countX + " " + countY + "\n");
 		for (int i = 0; i < countY; i++){
 			for (int j = 0; j < countX; j++){
 				if (map[i,j] == 'X'){
-					Buffer[i * countY + j] = new Vertex(j, i, false, false);
+					Buffer[i,j] = new Vertex(j, i, false, false);
 				} else if (map[i,j] == 'T'){
-					Buffer[i * countY + j] = new Vertex(j, i, true, true);
+					Buffer[i,j] = new Vertex(j, i, true, true);
 					treasureCount++;
 				} else { /* K atau R */
-					Buffer[i * countY + j] = new Vertex(j, i, false, true);
+					Buffer[i, j] = new Vertex(j, i, false, true);
 				}
 			}
 		}
@@ -151,6 +151,6 @@ public class Map
 
 	public Vertex getVertex(int x, int y)
 	{
-		return Buffer[y * MapY + x];
+		return Buffer[y, x];
 	}
 }

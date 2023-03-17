@@ -120,12 +120,12 @@ public class Map
 		for (int i = 0; i < countY; i++){
 			for (int j = 0; j < countX; j++){
 				if (map[i,j] == 'X'){
-					Buffer[i * countY + j] = new Vertex(i, j, false, false);
+					Buffer[i * countY + j] = new Vertex(j, i, false, false);
 				} else if (map[i,j] == 'T'){
-					Buffer[i * countY + j] = new Vertex(i, j, true, true);
+					Buffer[i * countY + j] = new Vertex(j, i, true, true);
 					treasureCount++;
 				} else { /* K atau R */
-					Buffer[i * countY + j] = new Vertex(i, j, false, true);
+					Buffer[i * countY + j] = new Vertex(j, i, false, true);
 				}
 			}
 		}

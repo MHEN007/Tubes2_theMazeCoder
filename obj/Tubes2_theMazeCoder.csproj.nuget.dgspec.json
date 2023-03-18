@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj": {}
+    "C:\\Users\\acer\\Documents\\STIMA\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj": {
+    "C:\\Users\\acer\\Documents\\STIMA\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
+        "projectUniqueName": "C:\\Users\\acer\\Documents\\STIMA\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
         "projectName": "Tubes2_theMazeCoder",
-        "projectPath": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
-        "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\obj\\",
+        "projectPath": "C:\\Users\\acer\\Documents\\STIMA\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
+        "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\acer\\Documents\\STIMA\\Tubes2_theMazeCoder\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

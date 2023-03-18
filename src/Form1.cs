@@ -9,41 +9,42 @@ namespace WindowsFormsApp1
     {
         public Form1()
         {
+            string mazepath;
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            LoadMazeData();
-            SetDataGridView();
+            //LoadMazeData();
+            button1.Click += new EventHandler(button1_Click);
         }
 
-        public void LoadMazeData()
-        {
-            string[] lines = File.ReadAllLines("../maze.txt");
-            int numRows = lines.Length;
-            int numCols = lines[0].Split(' ').Length;
+        // public void LoadMazeData()
+        //{
+        //    string[] lines = File.ReadAllLines("../maze.txt");
+        //    int numRows = lines.Length;
+        //    int numCols = lines[0].Split(' ').Length;
 
-            dataGridView1.ColumnCount = numCols;
-            dataGridView1.RowCount = numRows;
+        //    dataGridView1.ColumnCount = numCols;
+        //    dataGridView1.RowCount = numRows;
 
-            for (int i = 0; i < numRows; i++)
-            {
-                string[] rowValues = lines[i].Split(' ');
-                for (int j = 0; j < numCols; j++)
-                {
-                    string cellValue = rowValues[j];
-                    dataGridView1.Rows[i].Cells[j].Value = cellValue;
+        //    for (int i = 0; i < numRows; i++)
+        //   {
+        //        string[] rowValues = lines[i].Split(' ');
+        //        for (int j = 0; j < numCols; j++)
+        //        {
+        //            string cellValue = rowValues[j];
+        //           dataGridView1.Rows[i].Cells[j].Value = cellValue;
 
-                    if (cellValue == "K")
-                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(244, 77, 60);
-                    else if (cellValue == "T")
-                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(229, 223, 18);
-                    else if (cellValue == "R")
-                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(236, 237, 156);
-                    else if (cellValue == "X")
-                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(91, 120, 152);
-                }
-            }
-        }
+        //            if (cellValue == "K")
+        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(244, 77, 60);
+        //            else if (cellValue == "T")
+        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(229, 223, 18);
+        //            else if (cellValue == "R")
+        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(236, 237, 156);
+        //            else if (cellValue == "X")
+        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(91, 120, 152);
+        //       }
+        //   }
+        //}
 
         private void SetDataGridView()
         {
@@ -76,6 +77,70 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void LoadMazeData(string mazePath)
+        {
+            string[] lines = File.ReadAllLines(mazePath);
+            int numRows = lines.Length;
+            int numCols = lines[0].Split(' ').Length;
+
+            dataGridView1.ColumnCount = numCols;
+            dataGridView1.RowCount = numRows;
+
+            for (int i = 0; i < numRows; i++)
+            {
+                string[] rowValues = lines[i].Split(' ');
+                for (int j = 0; j < numCols; j++)
+                {
+                    string cellValue = rowValues[j];
+                    dataGridView1.Rows[i].Cells[j].Value = cellValue;
+
+                    if (cellValue == "K")
+                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(244, 77, 60);
+                    else if (cellValue == "T")
+                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(229, 223, 18);
+                    else if (cellValue == "R")
+                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(236, 237, 156);
+                    else if (cellValue == "X")
+                        dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(91, 120, 152);
+                }
+            }
+        }
+
+        //private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    OpenFileDialog openFileDialog = new OpenFileDialog();
+        //    openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+        //    openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        //    if (openFileDialog.ShowDialog() == DialogResult.OK)
+        //    {
+        //        string mazePath = openFileDialog.FileName;
+        //        LoadMazeData(mazePath);
+        //    }
+
+        //}
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog1.Title = "Select a maze file";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string selectedFileName = openFileDialog1.FileName;
+                try
+                {
+                    LoadMazeData(selectedFileName);
+                    SetDataGridView();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading maze: " + ex.Message);
+                }
+            }
 
         }
     }

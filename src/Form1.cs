@@ -14,7 +14,7 @@ namespace WindowsFormsApp1
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             //LoadMazeData();
-            button1.Click += new EventHandler(button1_Click);
+            //button1.Click += new EventHandler(button1_Click);
         }
 
         // public void LoadMazeData()
@@ -131,6 +131,7 @@ namespace WindowsFormsApp1
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string selectedFileName = openFileDialog1.FileName;
+                textBox1.Text = selectedFileName;
                 try
                 {
                     LoadMazeData(selectedFileName);
@@ -141,6 +142,21 @@ namespace WindowsFormsApp1
                     MessageBox.Show("Error loading maze: " + ex.Message);
                 }
             }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

@@ -153,4 +153,34 @@ public class Map
 	{
 		return Buffer[y, x];
 	}
+
+	public Vertex getRight(Vertex point)
+	{
+		return Buffer[point.x + 1, point.y];
+	}
+
+	public Vertex getLeft(Vertex point)
+	{
+		return Buffer[point.x - 1, point.y];
+	}
+
+	public Vertex getUp(Vertex point)
+	{
+		return Buffer[point.x, point.y - 1];
+	}
+
+	public Vertex getDown(Vertex point)
+	{
+		return Buffer[point.x, point.y + 1];
+	}
+
+	public Vertex getVertex(Vertex point)
+	{
+		return Buffer[point.y, point.x];
+	}
+
+	public void setVertex(Vertex point)
+	{
+		Buffer[point.y, point.x] = point;
+	}
 }

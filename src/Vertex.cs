@@ -22,4 +22,9 @@ public class Vertex
 
 	public bool GetStatusMove() { return IsAvailable; }
 	
+	public int getRow() { return x; }
+
+	public int getCol() { return y; }
+
+	public char getValue() { return IsTreasure ? 'T' : ' '; }
 }

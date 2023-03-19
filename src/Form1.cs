@@ -157,12 +157,102 @@ namespace WindowsFormsApp1
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+    private async void button3_Click(object sender, EventArgs e)
+    {
+        // Queue for BFS
+        Queue<Vertex> queue = new Queue<Vertex>();
+
+        // Already visited vertices
+        HashSet<Vertex> visited = new HashSet<Vertex>();
+
+        // Start vertex
+        Solver start = new Solver();
+
+        // Treasure found
+        int treasureFound = 0;
+        int treasure = start.m.getTreasureCount();
+
+        // Add start vertex to queue
+        Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
+        dataGridView1.Rows[startVertex.getRow()].Cells[startVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
+        queue.Enqueue(startVertex);
+
+        // Add start vertex to visited
+        visited.Add(startVertex);
+
+        // While queue is not empty
+        while (queue.Count > 0)
         {
+            // Dequeue vertex
+            Vertex currentVertex = queue.Dequeue();
+            visited.Add(currentVertex);
 
+            // If treasure is found
+            if (currentVertex.getValue() == 'T')
+            {
+                // Increment treasure found
+                treasureFound++;
+
+                // If all treasure is found
+                if (treasureFound == treasure)
+                {
+                    // Print path
+                    // printPath(path, currentVertex);
+                    // break;
+                }
+            }
+
+            if (start.m.isDownValid(currentVertex, start.m.getMap()))
+            {
+                Vertex downVertex = start.m.getDown(currentVertex);
+                if (!visited.Contains(downVertex))
+                {
+                    queue.Enqueue(downVertex);
+                    visited.Add(downVertex);
+                    dataGridView1.Rows[downVertex.getRow()].Cells[downVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                }
+            }
+
+            if (start.m.isUpValid(currentVertex, start.m.getMap()))
+            {
+                Vertex upVertex = start.m.getUp(currentVertex);
+                if (!visited.Contains(upVertex))
+                {
+                    queue.Enqueue(upVertex);
+                    visited.Add(upVertex);
+                    dataGridView1.Rows[upVertex.getRow()].Cells[upVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                }
+            }
+
+            if (start.m.isLeftValid(currentVertex, start.m.getMap()))
+            {
+                Vertex leftVertex = start.m.getLeft(currentVertex);
+                if (!visited.Contains(leftVertex))
+                {
+                    queue.Enqueue(leftVertex);
+                    visited.Add(leftVertex);
+                    dataGridView1.Rows[leftVertex.getRow()].Cells[leftVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                }
+            }
+
+            if (start.m.isRightValid(currentVertex, start.m.getMap()))
+            {
+                Vertex rightVertex = start.m.getRight(currentVertex);
+                if (!visited.Contains(rightVertex))
+                {
+                    queue.Enqueue(rightVertex);
+                    visited.Add(rightVertex);
+                    dataGridView1.Rows[rightVertex.getRow()].Cells[rightVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                }
+            }
+
+            // Wait for 100 milliseconds before updating the DataGridView
+            await Task.Delay(1000);
         }
+    }
 
-        private void button3_Click(object sender, EventArgs e)
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

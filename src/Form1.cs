@@ -41,8 +41,6 @@ namespace WindowsFormsApp1
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
-            dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.Rows[0].Cells[0].Style.BackColor;
-            //dataGridView1.Columns[0].Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -58,6 +56,7 @@ namespace WindowsFormsApp1
 
             dataGridView1.ColumnCount = numCols;
             dataGridView1.RowCount = numRows;
+            dataGridView1.ClearSelection();
 
             for (int i = 0; i < numRows; i++)
             {

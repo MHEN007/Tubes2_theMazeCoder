@@ -7,44 +7,13 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        string mazepath;
         public Form1()
         {
-            string mazepath;
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            //LoadMazeData();
-            //button1.Click += new EventHandler(button1_Click);
         }
-
-        // public void LoadMazeData()
-        //{
-        //    string[] lines = File.ReadAllLines("../maze.txt");
-        //    int numRows = lines.Length;
-        //    int numCols = lines[0].Split(' ').Length;
-
-        //    dataGridView1.ColumnCount = numCols;
-        //    dataGridView1.RowCount = numRows;
-
-        //    for (int i = 0; i < numRows; i++)
-        //   {
-        //        string[] rowValues = lines[i].Split(' ');
-        //        for (int j = 0; j < numCols; j++)
-        //        {
-        //            string cellValue = rowValues[j];
-        //           dataGridView1.Rows[i].Cells[j].Value = cellValue;
-
-        //            if (cellValue == "K")
-        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(244, 77, 60);
-        //            else if (cellValue == "T")
-        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(229, 223, 18);
-        //            else if (cellValue == "R")
-        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(236, 237, 156);
-        //            else if (cellValue == "X")
-        //                dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(91, 120, 152);
-        //       }
-        //   }
-        //}
 
         private void SetDataGridView()
         {
@@ -121,19 +90,6 @@ namespace WindowsFormsApp1
             }
         }
 
-        //private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-        //{
-        //    OpenFileDialog openFileDialog = new OpenFileDialog();
-        //    openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-        //    openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-        //    if (openFileDialog.ShowDialog() == DialogResult.OK)
-        //    {
-        //        string mazePath = openFileDialog.FileName;
-        //        LoadMazeData(mazePath);
-        //    }
-
-        //}
-
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -144,6 +100,7 @@ namespace WindowsFormsApp1
             {
                 string selectedFileName = openFileDialog1.FileName;
                 textBox1.Text = Path.GetFileName(selectedFileName);
+                mazepath = openFileDialog1.FileName;
                 try
                 {
                     LoadMazeData(selectedFileName);
@@ -157,104 +114,162 @@ namespace WindowsFormsApp1
 
         }
 
-    private async void button3_Click(object sender, EventArgs e)
-    {
-        // Queue for BFS
-        Queue<Vertex> queue = new Queue<Vertex>();
-
-        // Already visited vertices
-        HashSet<Vertex> visited = new HashSet<Vertex>();
-
-        // Start vertex
-        Solver start = new Solver();
-
-        // Treasure found
-        int treasureFound = 0;
-        int treasure = start.m.getTreasureCount();
-
-        // Add start vertex to queue
-        Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
-        dataGridView1.Rows[startVertex.getRow()].Cells[startVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
-        queue.Enqueue(startVertex);
-
-        // Add start vertex to visited
-        visited.Add(startVertex);
-
-        // While queue is not empty
-        while (queue.Count > 0)
+        /* BFS */
+        private async void button3_Click(object sender, EventArgs e)
         {
-            // Dequeue vertex
-            Vertex currentVertex = queue.Dequeue();
-            visited.Add(currentVertex);
+            /* Load ulang */
+            textBox2.Text = "0";
+            LoadMazeData(mazepath);
+            // Queue for BFS
+            Queue<Vertex> queue = new Queue<Vertex>();
 
-            // If treasure is found
-            if (currentVertex.getValue() == 'T')
+            // Already visited vertices
+            Stack<Vertex> visited = new Stack<Vertex>();
+
+            // Start vertex
+            Solver start = new Solver(mazepath);
+
+            // Treasure found
+            int treasureFound = 0;
+            int treasure = start.m.getTreasureCount();
+
+            // Add start vertex to queue
+            Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
+            dataGridView1.Rows[startVertex.getCol()].Cells[startVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
+            queue.Enqueue(startVertex);
+
+            // Add start vertex to visited
+            visited.Push(startVertex);
+
+            int c = 0;
+            // While queue is not empty
+            while (queue.Count > 0 && treasure != treasureFound)
             {
-                // Increment treasure found
-                treasureFound++;
+                c++;
+                // Dequeue vertex
+                Vertex currentVertex = queue.Dequeue();
+                visited.Push(currentVertex);
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
 
-                // If all treasure is found
-                if (treasureFound == treasure)
+                // If treasure is found
+                if (currentVertex.getValue() == 'T')
                 {
-                    // Print path
-                    // printPath(path, currentVertex);
-                    // break;
+                    // Increment treasure found
+                    treasureFound++;
                 }
-            }
 
-            if (start.m.isDownValid(currentVertex, start.m.getMap()))
-            {
-                Vertex downVertex = start.m.getDown(currentVertex);
-                if (!visited.Contains(downVertex))
+                if (start.m.isRightValid(currentVertex, start.m.getMap()))
                 {
-                    queue.Enqueue(downVertex);
-                    visited.Add(downVertex);
-                    dataGridView1.Rows[downVertex.getRow()].Cells[downVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                    Vertex rightVertex = start.m.getRight(currentVertex);
+                    if (!visited.Contains(rightVertex))
+                    {
+                        queue.Enqueue(rightVertex);
+                        visited.Push(rightVertex);
+                    }
                 }
-            }
 
-            if (start.m.isUpValid(currentVertex, start.m.getMap()))
-            {
-                Vertex upVertex = start.m.getUp(currentVertex);
-                if (!visited.Contains(upVertex))
+                if (start.m.isLeftValid(currentVertex, start.m.getMap()))
                 {
-                    queue.Enqueue(upVertex);
-                    visited.Add(upVertex);
-                    dataGridView1.Rows[upVertex.getRow()].Cells[upVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                    Vertex leftVertex = start.m.getLeft(currentVertex);
+                    if (!visited.Contains(leftVertex))
+                    {
+                        queue.Enqueue(leftVertex);
+                        visited.Push(leftVertex);
+                    }
                 }
-            }
 
-            if (start.m.isLeftValid(currentVertex, start.m.getMap()))
-            {
-                Vertex leftVertex = start.m.getLeft(currentVertex);
-                if (!visited.Contains(leftVertex))
+                if (start.m.isUpValid(currentVertex, start.m.getMap()))
                 {
-                    queue.Enqueue(leftVertex);
-                    visited.Add(leftVertex);
-                    dataGridView1.Rows[leftVertex.getRow()].Cells[leftVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                    Vertex upVertex = start.m.getUp(currentVertex);
+                    if (!visited.Contains(upVertex))
+                    {
+                        queue.Enqueue(upVertex);
+                        visited.Push(upVertex);
+                    }
                 }
-            }
 
-            if (start.m.isRightValid(currentVertex, start.m.getMap()))
-            {
-                Vertex rightVertex = start.m.getRight(currentVertex);
-                if (!visited.Contains(rightVertex))
+                if (start.m.isDownValid(currentVertex, start.m.getMap()))
                 {
-                    queue.Enqueue(rightVertex);
-                    visited.Add(rightVertex);
-                    dataGridView1.Rows[rightVertex.getRow()].Cells[rightVertex.getCol()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                    Vertex downVertex = start.m.getDown(currentVertex);
+                    if (!visited.Contains(downVertex))
+                    {
+                        queue.Enqueue(downVertex);
+                        visited.Push(downVertex);
+                    }
                 }
-            }
 
-            // Wait for 100 milliseconds before updating the DataGridView
-            await Task.Delay(1000);
+
+                // Wait for 100 milliseconds before updating the DataGridView
+                await Task.Delay(1000);
+            }
+            textBox2.Text = c.ToString();
         }
-    }
 
-
-        private void button2_Click(object sender, EventArgs e)
+        /* DFS */
+        private async void button2_Click(object sender, EventArgs e)
         {
+            /* Load ulang */
+            textBox2.Text = "0";
+            LoadMazeData(mazepath);
+            // Stack for DFS
+            Stack<Vertex> stack = new Stack<Vertex>();
 
+            // Already visited vertices
+            Stack<Vertex> visited = new Stack<Vertex>();
+
+            // Start vertex
+            Solver start = new Solver(mazepath);
+
+            // Treasure found
+            int treasureFound = 0;
+            int treasure = start.m.getTreasureCount();
+
+            // Add start vertex to queue
+            Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
+            dataGridView1.Rows[startVertex.getCol()].Cells[startVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
+            stack.Push(startVertex);
+
+            // Add start vertex to visited
+            visited.Push(startVertex);
+
+            int c = 0;
+            while (stack.Count > 0 && treasureFound != treasure)
+            {
+                c++;
+                Vertex current = stack.Pop();
+                visited.Push(current);
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                if (current.GetStatusTreasure())
+                {
+                    treasureFound++;
+                }
+
+                if (start.m.isDownValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y + 1)))
+                {
+                    Vertex down = start.m.getVertex(current.x, current.y + 1);
+                    stack.Push(down);
+                }
+
+                if (start.m.isUpValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y - 1)))
+                {
+                    Vertex up = start.m.getVertex(current.x, current.y - 1);
+                    stack.Push(up);
+                }
+
+                if (start.m.isLeftValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x - 1, current.y)))
+                {
+                    Vertex left = start.m.getVertex(current.x - 1, current.y);
+                    stack.Push(left);
+                }
+
+                if (start.m.isRightValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x + 1, current.y)))
+                {
+                    Vertex right = start.m.getVertex(current.x + 1, current.y);
+                    stack.Push(right);
+                }
+                await Task.Delay(1000);
+            }
+            textBox2.Text = c.ToString();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -263,6 +278,11 @@ namespace WindowsFormsApp1
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

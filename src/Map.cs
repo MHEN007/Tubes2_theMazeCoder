@@ -156,22 +156,22 @@ public class Map
 
 	public Vertex getRight(Vertex point)
 	{
-		return Buffer[point.x + 1, point.y];
+		return Buffer[point.y, point.x + 1];
 	}
 
 	public Vertex getLeft(Vertex point)
 	{
-		return Buffer[point.x - 1, point.y];
+		return Buffer[point.y, point.x - 1];
 	}
 
 	public Vertex getUp(Vertex point)
 	{
-		return Buffer[point.x, point.y - 1];
+		return Buffer[point.y - 1, point.x];
 	}
 
 	public Vertex getDown(Vertex point)
 	{
-		return Buffer[point.x, point.y + 1];
+		return Buffer[point.y + 1, point.x];
 	}
 
 	public Vertex getVertex(Vertex point)

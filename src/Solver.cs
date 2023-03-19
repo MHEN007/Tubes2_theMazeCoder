@@ -18,7 +18,7 @@ public class Solver
 	 * 3. Atas
 	 * 4. Bawah
 	 */
-	public void DFS()
+	public int DFS()
 	{
 		Stack<Vertex> stack = new Stack<Vertex>();
 		Stack<Vertex> alreadyVisited = new Stack<Vertex>();
@@ -76,10 +76,11 @@ public class Solver
                 Console.Write("Backtracking Right\n");
             }
 
-        }	
+        }
+        return c;
 	}
 
-	public void BFS()
+	public int BFS()
 	{
 		Queue<Vertex> queue = new Queue<Vertex>();
 		Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
@@ -126,6 +127,7 @@ public class Solver
                 Console.Write("Going down\n");
             }
         }
+        return c;
 
     }
 	

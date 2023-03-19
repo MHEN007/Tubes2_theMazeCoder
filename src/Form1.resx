@@ -1210,7 +1210,7 @@
         wRIswRIswRIswRIsP7Dy//w//z90YwG+f9r2OgAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="button2.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="DFSButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAaYAAACOCAYAAAB6+azsAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
         EQAAFxEByibzPwAA/7JJREFUeF7s/QV4VlmaNQxPWwkOcXdPSHB3dw2SAPGQQEJClACB4O7u7u4OAWIE
@@ -2378,7 +2378,7 @@
         RS960Yte9KIXvehFL3rRi170opdXovyX//L/AyIlfUjhIQ0bAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="button3.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="BFSButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAaYAAACOCAYAAAB6+azsAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAX
         EQAAFxEByibzPwAA/7JJREFUeF7svQV4Xde1NXpLAbMtZmbJkpmZmWXLsiwLLdlisCzLIDMzx8zMzLIt
@@ -9548,7 +9548,7 @@
 </value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>372</value>
+    <value>88</value>
   </metadata>
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

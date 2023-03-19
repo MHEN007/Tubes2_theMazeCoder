@@ -35,11 +35,15 @@ namespace WindowsFormsApp1
             dataGridView1 = new DataGridView();
             button1 = new Button();
             textBox1 = new TextBox();
-            button2 = new Button();
-            button3 = new Button();
+            DFSButton = new Button();
+            BFSButton = new Button();
             pictureBox1 = new PictureBox();
             label1 = new Label();
             textBox2 = new TextBox();
+            progressBar1 = new ProgressBar();
+            label2 = new Label();
+            label3 = new Label();
+            textBox3 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -74,10 +78,10 @@ namespace WindowsFormsApp1
             button1.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button1.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(149, 208);
+            button1.Location = new Point(109, 253);
             button1.Margin = new Padding(0);
             button1.Name = "button1";
-            button1.Size = new Size(118, 36);
+            button1.Size = new Size(199, 66);
             button1.TabIndex = 1;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
@@ -88,7 +92,7 @@ namespace WindowsFormsApp1
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.ForeColor = Color.Black;
-            textBox1.Location = new Point(155, 254);
+            textBox1.Location = new Point(157, 213);
             textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
@@ -97,42 +101,42 @@ namespace WindowsFormsApp1
             textBox1.TextAlign = HorizontalAlignment.Center;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
-            // button2
+            // DFSButton
             // 
-            button2.BackColor = Color.Transparent;
-            button2.BackgroundImage = (Image)resources.GetObject("button2.BackgroundImage");
-            button2.BackgroundImageLayout = ImageLayout.Zoom;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ImageAlign = ContentAlignment.TopCenter;
-            button2.Location = new Point(94, 338);
-            button2.Margin = new Padding(2);
-            button2.Name = "button2";
-            button2.Size = new Size(239, 81);
-            button2.TabIndex = 3;
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            DFSButton.BackColor = Color.Transparent;
+            DFSButton.BackgroundImage = (Image)resources.GetObject("DFSButton.BackgroundImage");
+            DFSButton.BackgroundImageLayout = ImageLayout.Zoom;
+            DFSButton.Cursor = Cursors.Hand;
+            DFSButton.FlatAppearance.BorderSize = 0;
+            DFSButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            DFSButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            DFSButton.FlatStyle = FlatStyle.Flat;
+            DFSButton.ImageAlign = ContentAlignment.TopCenter;
+            DFSButton.Location = new Point(93, 361);
+            DFSButton.Margin = new Padding(2);
+            DFSButton.Name = "DFSButton";
+            DFSButton.Size = new Size(239, 81);
+            DFSButton.TabIndex = 3;
+            DFSButton.UseVisualStyleBackColor = false;
+            DFSButton.Click += button2_Click;
             // 
-            // button3
+            // BFSButton
             // 
-            button3.BackColor = Color.Transparent;
-            button3.BackgroundImage = (Image)resources.GetObject("button3.BackgroundImage");
-            button3.BackgroundImageLayout = ImageLayout.Zoom;
-            button3.Cursor = Cursors.Hand;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            button3.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Location = new Point(94, 448);
-            button3.Margin = new Padding(2);
-            button3.Name = "button3";
-            button3.Size = new Size(239, 81);
-            button3.TabIndex = 4;
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
+            BFSButton.BackColor = Color.Transparent;
+            BFSButton.BackgroundImage = (Image)resources.GetObject("BFSButton.BackgroundImage");
+            BFSButton.BackgroundImageLayout = ImageLayout.Zoom;
+            BFSButton.Cursor = Cursors.Hand;
+            BFSButton.FlatAppearance.BorderSize = 0;
+            BFSButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            BFSButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            BFSButton.FlatStyle = FlatStyle.Flat;
+            BFSButton.Location = new Point(93, 475);
+            BFSButton.Margin = new Padding(2);
+            BFSButton.Name = "BFSButton";
+            BFSButton.Size = new Size(239, 81);
+            BFSButton.TabIndex = 4;
+            BFSButton.UseVisualStyleBackColor = false;
+            BFSButton.Click += button3_Click;
             // 
             // pictureBox1
             // 
@@ -150,7 +154,7 @@ namespace WindowsFormsApp1
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(451, 594);
+            label1.Location = new Point(442, 561);
             label1.Name = "label1";
             label1.Size = new Size(133, 25);
             label1.TabIndex = 6;
@@ -159,10 +163,47 @@ namespace WindowsFormsApp1
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(600, 591);
+            textBox2.Location = new Point(581, 558);
             textBox2.Name = "textBox2";
+            textBox2.ReadOnly = true;
             textBox2.Size = new Size(75, 31);
             textBox2.TabIndex = 7;
+            // 
+            // progressBar1
+            // 
+            progressBar1.Location = new Point(272, 633);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new Size(500, 34);
+            progressBar1.TabIndex = 8;
+            progressBar1.Click += progressBar1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(464, 670);
+            label2.Name = "label2";
+            label2.Size = new Size(111, 25);
+            label2.TabIndex = 9;
+            label2.Text = "Progress Bar";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(744, 561);
+            label3.Name = "label3";
+            label3.Size = new Size(112, 25);
+            label3.TabIndex = 10;
+            label3.Text = "Runtime(ms)";
+            label3.TextAlign = ContentAlignment.TopCenter;
+            label3.Click += label3_Click;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(862, 558);
+            textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
+            textBox3.Size = new Size(80, 31);
+            textBox3.TabIndex = 11;
             // 
             // Form1
             // 
@@ -172,17 +213,21 @@ namespace WindowsFormsApp1
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(996, 748);
+            Controls.Add(textBox3);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(progressBar1);
             Controls.Add(textBox2);
             Controls.Add(label1);
-            Controls.Add(button3);
-            Controls.Add(button2);
+            Controls.Add(BFSButton);
+            Controls.Add(DFSButton);
             Controls.Add(textBox1);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(pictureBox1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
-            Padding = new Padding(12, 12, 12, 12);
+            Padding = new Padding(12);
             Text = "    ";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -200,11 +245,15 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.DataGridView dataGridView1;
         private Button button1;
         private TextBox textBox1;
-        private Button button2;
-        private Button button3;
+        private Button DFSButton;
+        private Button BFSButton;
         private PictureBox pictureBox1;
         private Label label1;
         private TextBox textBox2;
+        private ProgressBar progressBar1;
+        private Label label2;
+        private Label label3;
+        private TextBox textBox3;
     }
 }
 

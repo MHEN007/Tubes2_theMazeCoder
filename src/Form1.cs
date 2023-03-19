@@ -119,6 +119,7 @@ namespace WindowsFormsApp1
         {
             /* Load ulang */
             textBox2.Text = "0";
+            textBox3.Text = "0";
             LoadMazeData(mazepath);
             // Queue for BFS
             Queue<Vertex> queue = new Queue<Vertex>();
@@ -132,6 +133,9 @@ namespace WindowsFormsApp1
             // Treasure found
             int treasureFound = 0;
             int treasure = start.m.getTreasureCount();
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = start.BFS();
+            progressBar1.Value = 0;
 
             // Add start vertex to queue
             Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
@@ -143,16 +147,18 @@ namespace WindowsFormsApp1
 
             int c = 0;
             // While queue is not empty
+            var startTime = DateTime.Now;
             while (queue.Count > 0 && treasure != treasureFound)
             {
                 c++;
+                progressBar1.Value++;
                 // Dequeue vertex
                 Vertex currentVertex = queue.Dequeue();
                 visited.Push(currentVertex);
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
-
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.Green;
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Green;
                 // If treasure is found
-                if (currentVertex.getValue() == 'T')
+                if (currentVertex.GetStatusTreasure())
                 {
                     // Increment treasure found
                     treasureFound++;
@@ -200,9 +206,13 @@ namespace WindowsFormsApp1
 
 
                 // Wait for 100 milliseconds before updating the DataGridView
-                await Task.Delay(1000);
+                await Task.Delay(100);
             }
+            var endTime = DateTime.Now;
             textBox2.Text = c.ToString();
+            var runTime = endTime - startTime;
+            int run = runTime.Milliseconds;
+            textBox3.Text = run.ToString();
         }
 
         /* DFS */
@@ -210,6 +220,7 @@ namespace WindowsFormsApp1
         {
             /* Load ulang */
             textBox2.Text = "0";
+            textBox3.Text = "0";
             LoadMazeData(mazepath);
             // Stack for DFS
             Stack<Vertex> stack = new Stack<Vertex>();
@@ -223,6 +234,9 @@ namespace WindowsFormsApp1
             // Treasure found
             int treasureFound = 0;
             int treasure = start.m.getTreasureCount();
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = start.DFS();
+            progressBar1.Value = 0;
 
             // Add start vertex to queue
             Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
@@ -233,12 +247,15 @@ namespace WindowsFormsApp1
             visited.Push(startVertex);
 
             int c = 0;
+            var startTime = DateTime.Now;
             while (stack.Count > 0 && treasureFound != treasure)
             {
                 c++;
+                progressBar1.Value++;
                 Vertex current = stack.Pop();
                 visited.Push(current);
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(0, 0, 0);
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
                 if (current.GetStatusTreasure())
                 {
                     treasureFound++;
@@ -267,9 +284,13 @@ namespace WindowsFormsApp1
                     Vertex right = start.m.getVertex(current.x + 1, current.y);
                     stack.Push(right);
                 }
-                await Task.Delay(1000);
+                await Task.Delay(100);
             }
+            var endTime = DateTime.Now;
             textBox2.Text = c.ToString();
+            var runTime = endTime - startTime;
+            int run = runTime.Milliseconds;
+            textBox3.Text = run.ToString();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -283,6 +304,16 @@ namespace WindowsFormsApp1
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

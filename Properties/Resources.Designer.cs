@@ -59,5 +59,15 @@ namespace Tubes2_theMazeCoder.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Latihan_ER_Diagram_Weak_Entity_Edunex_2___DBMS_ER_diagram__UML_notation_ {
+            get {
+                object obj = ResourceManager.GetObject("Latihan ER Diagram Weak Entity Edunex 2 - DBMS ER diagram (UML notation)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

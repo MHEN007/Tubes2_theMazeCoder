@@ -73,6 +73,7 @@ namespace WindowsFormsApp1
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.DefaultCellStyle.SelectionBackColor = dataGridView1.Rows[0].Cells[0].Style.BackColor;
+            //dataGridView1.Columns[0].Visible = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -96,15 +97,26 @@ namespace WindowsFormsApp1
                 {
                     string cellValue = rowValues[j];
                     dataGridView1.Rows[i].Cells[j].Value = cellValue;
-
                     if (cellValue == "K")
+                    {
                         dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(244, 77, 60);
+                        dataGridView1.Rows[i].Cells[j].Style.ForeColor = System.Drawing.Color.FromArgb(244, 77, 60);
+                    }
                     else if (cellValue == "T")
+                    {
                         dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(229, 223, 18);
+                        dataGridView1.Rows[i].Cells[j].Style.ForeColor = System.Drawing.Color.FromArgb(229, 223, 18);
+                    }
                     else if (cellValue == "R")
+                    {
                         dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(236, 237, 156);
+                        dataGridView1.Rows[i].Cells[j].Style.ForeColor = System.Drawing.Color.FromArgb(236, 237, 156);
+                    }
                     else if (cellValue == "X")
+                    {
                         dataGridView1.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.FromArgb(91, 120, 152);
+                        dataGridView1.Rows[i].Cells[j].Style.ForeColor = System.Drawing.Color.FromArgb(91, 120, 152);
+                    }
                 }
             }
         }
@@ -131,7 +143,7 @@ namespace WindowsFormsApp1
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 string selectedFileName = openFileDialog1.FileName;
-                textBox1.Text = selectedFileName;
+                textBox1.Text = Path.GetFileName(selectedFileName);
                 try
                 {
                     LoadMazeData(selectedFileName);
@@ -156,6 +168,11 @@ namespace WindowsFormsApp1
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }

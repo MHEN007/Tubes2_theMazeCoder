@@ -4,7 +4,7 @@ public class Map
 {
 	/* Ukuran Peta: x dan y */
 	public static int MapX, MapY;
-	public static int treasureCount = 0;
+	public int treasureCount = 0;
 
 	/* Gerakan yang mungkin
 	 * Up, Right, Down, Left */

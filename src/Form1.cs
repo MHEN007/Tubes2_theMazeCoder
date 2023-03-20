@@ -218,12 +218,13 @@ namespace WindowsFormsApp1
                     stack.Push(right);
                 }
 
+                bool signal = false;
                 if (!start.m.isBackTrack(current, start.m.getMap(), visited)){
-                    await Task.Delay(500);  
+                    signal = true;
                 }
 
                 bool isSUS = false;
-                while (start.m.isBackTrack(current, start.m.getMap(), visited) && stack.Count > 0 && treasureFound < treasure)
+                while (start.m.isBackTrack(current, start.m.getMap(), visited) && treasureFound < treasure)
                 {
                     current = backtrack.Pop();
                     if (current.GetStatusTreasure()){
@@ -234,9 +235,11 @@ namespace WindowsFormsApp1
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                     } else if (!isSUS) {
+                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
+                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
+                        await Task.Delay(500);
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Red;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Red;
-                        await Task.Delay(500);
                     } else if (isSUS) {
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
@@ -245,6 +248,12 @@ namespace WindowsFormsApp1
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
                     }
                 }
+                
+                if (signal){
+                    await Task.Delay(500);
+                } else {
+                    backtrack.Push(current);
+                }
 
                 dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
                 dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
@@ -252,6 +261,7 @@ namespace WindowsFormsApp1
                 {
                     dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                 }
+
             }
             var endTime = DateTime.Now;
             textBox2.Text = c.ToString();
@@ -368,6 +378,10 @@ namespace WindowsFormsApp1
                 if (currentVertex.GetStatusTreasure())
                 {
                     dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
+                    queue.Clear();
+                    currentVertex.diableTreasure();
+                    queue.Enqueue(currentVertex);
+                
                 }
             }
             var endTime = DateTime.Now;

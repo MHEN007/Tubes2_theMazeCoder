@@ -31,6 +31,8 @@ public class Vertex
 
 	public char getValue() { return IsTreasure ? 'T' : ' '; }
 
+	public void diableTreasure() { IsTreasure = false; }
+
     public override bool Equals(object obj)
     {
         if(obj == null || GetType() != obj.GetType())

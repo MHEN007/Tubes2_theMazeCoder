@@ -8,6 +8,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         string mazepath;
+        bool isButtonClicked = false;
         public Form1()
         {
             InitializeComponent();
@@ -98,38 +99,53 @@ namespace WindowsFormsApp1
             return true;
         }
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog1.Title = "Select a maze file";
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            Button button = (Button)sender;
+            if (!isButtonClicked)
             {
-                string selectedFileName = openFileDialog1.FileName;
-                textBox1.Text = Path.GetFileName(selectedFileName);
-                mazepath = openFileDialog1.FileName;
-                try
+                isButtonClicked = true;
+                button.Enabled = false;
+                OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                openFileDialog1.Filter = "Text files (*.txt)|*.txt";
+                openFileDialog1.Title = "Select a maze file";
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    LoadMazeData(selectedFileName);
-                    SetDataGridView();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error loading maze: " + ex.Message);
+                    string selectedFileName = openFileDialog1.FileName;
+                    textBox1.Text = Path.GetFileName(selectedFileName);
+                    mazepath = openFileDialog1.FileName;
+                    try
+                    {
+                        LoadMazeData(selectedFileName);
+                        SetDataGridView();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error loading maze: " + ex.Message);
+                    }
                 }
             }
-
+            isButtonClicked = false;
+            button.Enabled = true;
         }
 
+
         /* DFS */
-        private async void button2_Click(object sender, EventArgs e)
+        private async void DFS()
         {
             if (!isMazePathLoaded())
             {
                 MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            //Button button = (Button)sender;
+            //if (!isButtonClicked)
+            //{
+            //isButtonClicked = true;
+            //button.Enabled = false;
             /* Load ulang */
             textBox2.Text = "0";
             textBox3.Text = "0";
@@ -207,17 +223,25 @@ namespace WindowsFormsApp1
             var runTime = endTime - startTime;
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
+            //}
+            //isButtonClicked = false;
+            //button.Enabled = true;
         }
 
         /* BFS */
-        private async void button3_Click(object sender, EventArgs e)
+        private async void BFS()
         {
             if (!isMazePathLoaded())
             {
                 MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            /* Load ulang */
+            //Button button = (Button)sender;
+            //if (!isButtonClicked)
+            //{
+            //    isButtonClicked = true;
+            //    button.Enabled = false;
+                /* Load ulang */
             textBox2.Text = "0";
             textBox3.Text = "0";
             LoadMazeData(mazepath);
@@ -316,6 +340,9 @@ namespace WindowsFormsApp1
             var runTime = endTime - startTime;
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
+            //}
+            //isButtonClicked = false;
+            //button.Enabled = true;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -335,6 +362,33 @@ namespace WindowsFormsApp1
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            if(radioButton1.Checked)
+            {
+                DFS();
+            }
+            else if(radioButton2.Checked)
+            {
+                BFS();
+            }
+            else if(radioButton3.Checked)
+            {
+                // TSP();
+            }
         }
     }
 }

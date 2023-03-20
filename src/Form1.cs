@@ -89,6 +89,15 @@ namespace WindowsFormsApp1
             }
         }
 
+        private bool isMazePathLoaded()
+        {
+            if (mazepath == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -116,6 +125,11 @@ namespace WindowsFormsApp1
         /* DFS */
         private async void button2_Click(object sender, EventArgs e)
         {
+            if (!isMazePathLoaded())
+            {
+                MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             /* Load ulang */
             textBox2.Text = "0";
             textBox3.Text = "0";
@@ -198,6 +212,11 @@ namespace WindowsFormsApp1
         /* BFS */
         private async void button3_Click(object sender, EventArgs e)
         {
+            if (!isMazePathLoaded())
+            {
+                MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             /* Load ulang */
             textBox2.Text = "0";
             textBox3.Text = "0";

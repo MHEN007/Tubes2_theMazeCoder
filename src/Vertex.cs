@@ -30,4 +30,20 @@ public class Vertex
 	public int getCol() { return y; }
 
 	public char getValue() { return IsTreasure ? 'T' : ' '; }
+
+    public override bool Equals(object obj)
+    {
+        if(obj == null || GetType() != obj.GetType())
+		{
+			return false;
+		}
+
+		Vertex v = (Vertex)obj;
+		return (x == v.x && y == v.y);
+    }
+
+    public override int GetHashCode()
+    {
+        return (x + y).GetHashCode();
+    }
 }

@@ -34,3 +34,21 @@ C:\Users\acer\Documents\STIMA\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\refin
 C:\Users\acer\Documents\STIMA\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.pdb
 C:\Users\acer\Documents\STIMA\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.genruntimeconfig.cache
 C:\Users\acer\Documents\STIMA\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\ref\Tubes2_theMazeCoder.dll
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\bin\Debug\net6.0-windows\Tubes2_theMazeCoder.exe
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\bin\Debug\net6.0-windows\Tubes2_theMazeCoder.deps.json
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\bin\Debug\net6.0-windows\Tubes2_theMazeCoder.runtimeconfig.json
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\bin\Debug\net6.0-windows\Tubes2_theMazeCoder.dll
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\bin\Debug\net6.0-windows\Tubes2_theMazeCoder.pdb
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.csproj.AssemblyReference.cache
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.Properties.Resources.resources
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\WindowsFormsApp1.Form1.resources
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.csproj.GenerateResource.cache
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.AssemblyInfoInputs.cache
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.AssemblyInfo.cs
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.csproj.CoreCompileInputs.cache
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.dll
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\refint\Tubes2_theMazeCoder.dll
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.pdb
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\Tubes2_theMazeCoder.genruntimeconfig.cache
+C:\Users\wilda\OneDrive - Institut Teknologi Bandung\Documents\KULIAH WILLY\Tingkat 2\Stima\TUBES\Tubes 2\Tubes2_theMazeCoder\obj\Debug\net6.0-windows\ref\Tubes2_theMazeCoder.dll

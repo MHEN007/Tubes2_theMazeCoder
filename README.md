@@ -18,5 +18,5 @@ Untuk menjalankan program ini, Anda memerlukan
 ## Cara menjalankan
 1. Buka root folder ini
 2. Pada terminal, masukkan `dotnet run` lalu program akan dijalankan
-3. Pilih file konfigurasi yang telah dimasukkan pada folder `test`
-4. Pilih metode pencarian yang (DFS atau BFS)
+3. Pilih file konfigurasi yang telah dimasukkan pada folder `test`. File akan otomatis melakukan visualisasi
+4. Pilih metode pencarian yang ingin digunakan (DFS atau BFS). Prioritas arah adalah Kanan, Kiri, Atas, Bawah.

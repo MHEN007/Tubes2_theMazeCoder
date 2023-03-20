@@ -40,9 +40,7 @@ namespace WindowsFormsApp1
             pictureBox1 = new PictureBox();
             label1 = new Label();
             textBox2 = new TextBox();
-            progressBar1 = new ProgressBar();
             label2 = new Label();
-            label3 = new Label();
             textBox3 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -169,33 +167,16 @@ namespace WindowsFormsApp1
             textBox2.Size = new Size(75, 31);
             textBox2.TabIndex = 7;
             // 
-            // progressBar1
-            // 
-            progressBar1.Location = new Point(272, 633);
-            progressBar1.Name = "progressBar1";
-            progressBar1.Size = new Size(500, 34);
-            progressBar1.TabIndex = 8;
-            progressBar1.Click += progressBar1_Click;
-            // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(464, 670);
+            label2.Location = new Point(744, 561);
             label2.Name = "label2";
-            label2.Size = new Size(111, 25);
-            label2.TabIndex = 9;
-            label2.Text = "Progress Bar";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(744, 561);
-            label3.Name = "label3";
-            label3.Size = new Size(112, 25);
-            label3.TabIndex = 10;
-            label3.Text = "Runtime(ms)";
-            label3.TextAlign = ContentAlignment.TopCenter;
-            label3.Click += label3_Click;
+            label2.Size = new Size(112, 25);
+            label2.TabIndex = 10;
+            label2.Text = "Runtime(ms)";
+            label2.TextAlign = ContentAlignment.TopCenter;
+            label2.Click += label2_Click;
             // 
             // textBox3
             // 
@@ -214,9 +195,7 @@ namespace WindowsFormsApp1
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(996, 748);
             Controls.Add(textBox3);
-            Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(progressBar1);
             Controls.Add(textBox2);
             Controls.Add(label1);
             Controls.Add(BFSButton);
@@ -250,9 +229,7 @@ namespace WindowsFormsApp1
         private PictureBox pictureBox1;
         private Label label1;
         private TextBox textBox2;
-        private ProgressBar progressBar1;
         private Label label2;
-        private Label label3;
         private TextBox textBox3;
     }
 }

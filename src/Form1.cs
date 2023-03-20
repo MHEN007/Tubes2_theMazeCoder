@@ -113,6 +113,88 @@ namespace WindowsFormsApp1
 
         }
 
+        /* DFS */
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            /* Load ulang */
+            textBox2.Text = "0";
+            textBox3.Text = "0";
+            LoadMazeData(mazepath);
+            // Stack for DFS
+            Stack<Vertex> stack = new Stack<Vertex>();
+
+            // Already visited vertices
+            Stack<Vertex> visited = new Stack<Vertex>();
+
+            // Start vertex
+            Solver start = new Solver(mazepath);
+
+            // Treasure found
+            int treasureFound = 0;
+            int treasure = start.m.getTreasureCount();
+
+            // Add start vertex to queue
+            Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
+            dataGridView1.Rows[startVertex.getCol()].Cells[startVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
+            stack.Push(startVertex);
+
+            // Add start vertex to visited
+            visited.Push(startVertex);
+
+            int c = 0;
+            var startTime = DateTime.Now;
+            while (stack.Count > 0 && treasureFound != treasure)
+            {
+                c++;
+                Vertex current = stack.Pop();
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
+                visited.Push(current);
+                if (current.GetStatusTreasure())
+                {
+                    treasureFound++;
+                    dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Value = "Treasure";
+                    dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
+                }
+
+                if (start.m.isDownValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y + 1)))
+                {
+                    Vertex down = start.m.getVertex(current.x, current.y + 1);
+                    stack.Push(down);
+                }
+
+                if (start.m.isUpValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y - 1)))
+                {
+                    Vertex up = start.m.getVertex(current.x, current.y - 1);
+                    stack.Push(up);
+                }
+
+                if (start.m.isLeftValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x - 1, current.y)))
+                {
+                    Vertex left = start.m.getVertex(current.x - 1, current.y);
+                    stack.Push(left);
+                }
+
+                if (start.m.isRightValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x + 1, current.y)))
+                {
+                    Vertex right = start.m.getVertex(current.x + 1, current.y);
+                    stack.Push(right);
+                }
+                await Task.Delay(500);
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
+                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
+                if (current.GetStatusTreasure())
+                {
+                    dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
+                }
+            }
+            var endTime = DateTime.Now;
+            textBox2.Text = c.ToString();
+            var runTime = endTime - startTime;
+            int run = runTime.Milliseconds;
+            textBox3.Text = run.ToString();
+        }
+
         /* BFS */
         private async void button3_Click(object sender, EventArgs e)
         {
@@ -132,13 +214,9 @@ namespace WindowsFormsApp1
             // Treasure found
             int treasureFound = 0;
             int treasure = start.m.getTreasureCount();
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = start.BFS();
-            progressBar1.Value = 0;
 
             // Add start vertex to queue
             Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
-            dataGridView1.Rows[startVertex.getCol()].Cells[startVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
             queue.Enqueue(startVertex);
 
             // Add start vertex to visited
@@ -150,17 +228,18 @@ namespace WindowsFormsApp1
             while (queue.Count > 0 && treasure != treasureFound)
             {
                 c++;
-                progressBar1.Value++;
                 // Dequeue vertex
                 Vertex currentVertex = queue.Dequeue();
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.Blue;
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
                 visited.Push(currentVertex);
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.Green;
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Green;
                 // If treasure is found
                 if (currentVertex.GetStatusTreasure())
                 {
                     // Increment treasure found
                     treasureFound++;
+                    dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Value = "Treasure";
+                    dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                 }
 
                 if (start.m.isRightValid(currentVertex, start.m.getMap()))
@@ -205,85 +284,13 @@ namespace WindowsFormsApp1
 
 
                 // Wait for 100 milliseconds before updating the DataGridView
-                await Task.Delay(100);
-            }
-            var endTime = DateTime.Now;
-            textBox2.Text = c.ToString();
-            var runTime = endTime - startTime;
-            int run = runTime.Milliseconds;
-            textBox3.Text = run.ToString();
-        }
-
-        /* DFS */
-        private async void button2_Click(object sender, EventArgs e)
-        {
-            /* Load ulang */
-            textBox2.Text = "0";
-            textBox3.Text = "0";
-            LoadMazeData(mazepath);
-            // Stack for DFS
-            Stack<Vertex> stack = new Stack<Vertex>();
-
-            // Already visited vertices
-            Stack<Vertex> visited = new Stack<Vertex>();
-
-            // Start vertex
-            Solver start = new Solver(mazepath);
-
-            // Treasure found
-            int treasureFound = 0;
-            int treasure = start.m.getTreasureCount();
-            progressBar1.Minimum = 0;
-            progressBar1.Maximum = start.DFS();
-            progressBar1.Value = 0;
-
-            // Add start vertex to queue
-            Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
-            dataGridView1.Rows[startVertex.getCol()].Cells[startVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
-            stack.Push(startVertex);
-
-            // Add start vertex to visited
-            visited.Push(startVertex);
-
-            int c = 0;
-            var startTime = DateTime.Now;
-            while (stack.Count > 0 && treasureFound != treasure)
-            {
-                c++;
-                progressBar1.Value++;
-                Vertex current = stack.Pop();
-                visited.Push(current);
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
-                if (current.GetStatusTreasure())
+                await Task.Delay(500);
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.Green;
+                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Green;
+                if (currentVertex.GetStatusTreasure())
                 {
-                    treasureFound++;
+                    dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                 }
-
-                if (start.m.isDownValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y + 1)))
-                {
-                    Vertex down = start.m.getVertex(current.x, current.y + 1);
-                    stack.Push(down);
-                }
-
-                if (start.m.isUpValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y - 1)))
-                {
-                    Vertex up = start.m.getVertex(current.x, current.y - 1);
-                    stack.Push(up);
-                }
-
-                if (start.m.isLeftValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x - 1, current.y)))
-                {
-                    Vertex left = start.m.getVertex(current.x - 1, current.y);
-                    stack.Push(left);
-                }
-
-                if (start.m.isRightValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x + 1, current.y)))
-                {
-                    Vertex right = start.m.getVertex(current.x + 1, current.y);
-                    stack.Push(right);
-                }
-                await Task.Delay(100);
             }
             var endTime = DateTime.Now;
             textBox2.Text = c.ToString();
@@ -306,13 +313,7 @@ namespace WindowsFormsApp1
         {
 
         }
-
-        private void progressBar1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

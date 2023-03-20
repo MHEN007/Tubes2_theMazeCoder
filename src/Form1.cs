@@ -156,6 +156,9 @@ namespace WindowsFormsApp1
             // Already visited vertices
             Stack<Vertex> visited = new Stack<Vertex>();
 
+            // Backtracked stack
+            Stack<Vertex> backtrack = new Stack<Vertex>();
+
             // Start vertex
             Solver start = new Solver(mazepath);
 
@@ -187,25 +190,25 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                 }
 
-                if (start.m.isDownValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y + 1)))
+                if (start.m.isDownValid(current, start.m.getMap(), visited))
                 {
                     Vertex down = start.m.getVertex(current.x, current.y + 1);
                     stack.Push(down);
                 }
 
-                if (start.m.isUpValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x, current.y - 1)))
+                if (start.m.isUpValid(current, start.m.getMap(), visited))
                 {
                     Vertex up = start.m.getVertex(current.x, current.y - 1);
                     stack.Push(up);
                 }
 
-                if (start.m.isLeftValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x - 1, current.y)))
+                if (start.m.isLeftValid(current, start.m.getMap(), visited))
                 {
                     Vertex left = start.m.getVertex(current.x - 1, current.y);
                     stack.Push(left);
                 }
 
-                if (start.m.isRightValid(current, start.m.getMap()) && !visited.Contains(start.m.getVertex(current.x + 1, current.y)))
+                if (start.m.isRightValid(current, start.m.getMap(), visited))
                 {
                     Vertex right = start.m.getVertex(current.x + 1, current.y);
                     stack.Push(right);
@@ -285,7 +288,7 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                 }
 
-                if (start.m.isRightValid(currentVertex, start.m.getMap()))
+                if (start.m.isRightValid(currentVertex, start.m.getMap(), visited))
                 {
                     Vertex rightVertex = start.m.getRight(currentVertex);
                     if (!visited.Contains(rightVertex))
@@ -295,7 +298,7 @@ namespace WindowsFormsApp1
                     }
                 }
 
-                if (start.m.isLeftValid(currentVertex, start.m.getMap()))
+                if (start.m.isLeftValid(currentVertex, start.m.getMap(), visited))
                 {
                     Vertex leftVertex = start.m.getLeft(currentVertex);
                     if (!visited.Contains(leftVertex))
@@ -305,7 +308,7 @@ namespace WindowsFormsApp1
                     }
                 }
 
-                if (start.m.isUpValid(currentVertex, start.m.getMap()))
+                if (start.m.isUpValid(currentVertex, start.m.getMap(), visited))
                 {
                     Vertex upVertex = start.m.getUp(currentVertex);
                     if (!visited.Contains(upVertex))
@@ -315,7 +318,7 @@ namespace WindowsFormsApp1
                     }
                 }
 
-                if (start.m.isDownValid(currentVertex, start.m.getMap()))
+                if (start.m.isDownValid(currentVertex, start.m.getMap(), visited))
                 {
                     Vertex downVertex = start.m.getDown(currentVertex);
                     if (!visited.Contains(downVertex))

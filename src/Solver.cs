@@ -39,7 +39,7 @@ public class Solver
                 treasureFound++;
                 Console.Write("Treasure found at " + current.x + " " + current.y + "\n");
             }
-            if (m.isDownValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x, current.y + 1)))
+            if (m.isDownValid(current, m.getMap(), alreadyVisited))
             {
                 Vertex down = m.getVertex(current.x, current.y + 1);
                 stack.Push(down);
@@ -47,7 +47,7 @@ public class Solver
             }else{				// backtrack
 				Console.Write("Backtracking down\n");
 			}
-			if (m.isUpValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x, current.y - 1)))
+			if (m.isUpValid(current, m.getMap(), alreadyVisited))
 			{
 				Vertex up = m.getVertex(current.x, current.y - 1);
 				stack.Push(up);
@@ -55,7 +55,7 @@ public class Solver
 			}else{				// backtrack
 				Console.Write("Backtracking Up\n");
 			}
-            if (m.isLeftValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x - 1, current.y)))
+            if (m.isLeftValid(current, m.getMap(), alreadyVisited))
             {
                 Vertex left = m.getVertex(current.x - 1, current.y);
                 stack.Push(left);
@@ -65,7 +65,7 @@ public class Solver
             {               // backtrack
                 Console.Write("Backtracking Left\n");
             }
-            if (m.isRightValid(current, m.getMap()) && !alreadyVisited.Contains(m.getVertex(current.x + 1, current.y)))
+            if (m.isRightValid(current, m.getMap(), alreadyVisited))
             {
                 Vertex right = m.getVertex(current.x + 1, current.y);
                 stack.Push(right);
@@ -75,7 +75,13 @@ public class Solver
             {           // backtrack
                 Console.Write("Backtracking Right\n");
             }
-
+            // backtrack
+            if (m.isBackTrack(current, m.getMap(), alreadyVisited))
+            {
+                Vertex backtrack = m.getVertex(current.x, current.y);
+                stack.Push(backtrack);
+                Console.Write("Backtracking\n");
+            }
         }
         return c;
 	}
@@ -102,25 +108,25 @@ public class Solver
                 treasureFound++;
                 Console.Write("Treasure found at " + current.x + " " + current.y + "\n");
             }
-            if (m.isRightValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x + 1, current.y)))
+            if (m.isRightValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x + 1, current.y)))
             {
                 Vertex right = m.getVertex(current.x + 1, current.y);
                 queue.Enqueue(right);
                 Console.Write("Going right\n");
             }
-            if (m.isLeftValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x - 1, current.y)))
+            if (m.isLeftValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x - 1, current.y)))
             {
                 Vertex left = m.getVertex(current.x - 1, current.y);
                 queue.Enqueue(left);
                 Console.Write("Going left\n");
             }
-            if (m.isUpValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y - 1)))
+            if (m.isUpValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y - 1)))
             {
                 Vertex up = m.getVertex(current.x, current.y - 1);
                 queue.Enqueue(up);
                 Console.Write("Going up\n");
             }
-            if (m.isDownValid(current, m.getMap()) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y + 1)))
+            if (m.isDownValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y + 1)))
             {
                 Vertex down = m.getVertex(current.x, current.y + 1);
                 queue.Enqueue(down);

@@ -19,39 +19,52 @@ public class Map
 	/* x dan y posisi, map peta, */
 
 	/* Validator */
-	public bool isUpValid(Vertex point, char[,] map)
+	public bool isUpValid(Vertex point, char[,] map, Stack<Vertex> stack)
 	{
-		if (point.y + MoveY[0] < MapY && point.y + MoveY[0] >= 0){
+		if (point.y + MoveY[0] < MapY && point.y + MoveY[0] >= 0 && !stack.Contains(this.getUp(point)))
+		{
 			return (map[point.y+MoveY[0],point.x] != 'X');
 		} else {
 			return false;
 		}
 	}
 
-	public bool isDownValid(Vertex point, char[,] map)
+	public bool isDownValid(Vertex point, char[,] map, Stack<Vertex> stack)
 	{
-		if (point.y + MoveY[2] < MapY && point.y + MoveY[2] >= 0){
+		if (point.y + MoveY[2] < MapY && point.y + MoveY[2] >= 0 && !stack.Contains(this.getDown(point)))
+        {
 			return (map[point.y + MoveY[2],point.x] != 'X');
 		} else {
 			return false;
 		}
 	}	
-	public bool isRightValid(Vertex point, char[,] map)
+	public bool isRightValid(Vertex point, char[,] map, Stack<Vertex> stack)
 	{
-		if (point.x + MoveX[1] < MapX && point.x + MoveX[1] >= 0){
+		if (point.x + MoveX[1] < MapX && point.x + MoveX[1] >= 0 && !stack.Contains(this.getRight(point)))
+        {
 			return (map[point.y,point.x + MoveX[1]] != 'X');
 		} else {
 			return false;
 		}	}
-	public bool isLeftValid(Vertex point, char[,] map)
+	public bool isLeftValid(Vertex point, char[,] map, Stack<Vertex> stack)
 	{
-		if (point.x + MoveX[3] < MapX && point.x + MoveX[3] >= 0){
+		if (point.x + MoveX[3] < MapX && point.x + MoveX[3] >= 0 && !stack.Contains(this.getLeft(point)))
+        {
 			return (map[point.y,point.x + MoveX[3]] != 'X');
 		} else {
 			return false;
 		}
 	}
-
+	public bool isBackTrack(Vertex point, char[,] map, Stack<Vertex> stack)
+	{
+		if (!isUpValid(point, map, stack) && !isDownValid(point, map, stack) && !isLeftValid(point, map, stack) && !isRightValid(point, map, stack))
+		{
+            return true;
+        } else
+		{
+            return false;
+        }
+	}
 
 	public bool isStartingPoint(Vertex point, char[,] map)
 	{

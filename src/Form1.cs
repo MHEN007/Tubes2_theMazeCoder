@@ -261,29 +261,7 @@ namespace WindowsFormsApp1
                     temp = current;
                     current = backtrack.Pop();
                     Console.WriteLine("X: {0}, Y: {1}", current.x, current.y);
-                    if (current.GetStatusTreasure()){
-                        if (temp != current){
-                            if (start.m.isRight(temp, current))
-                            {
-                                path.Push('R');
-                            }
-                            else if (start.m.isLeft(temp, current))
-                            {
-                                path.Push('L');
-                            }
-                            else if (start.m.isUp(temp, current))
-                            {
-                                path.Push('U');
-                            }
-                            else if (start.m.isDown(temp, current))
-                            {
-                                path.Push('D');
-                            }
-                            else 
-                            {
-                                MessageBox.Show("Error");
-                            }
-                        }
+                    if (current.GetStatusTreasure() && !isSUS){
                         isSUS = true;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;

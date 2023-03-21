@@ -13,14 +13,11 @@ public class Vertex
 	 */
 	private bool IsTreasure;
 	private bool IsAvailable;
-	private Vertex? previous;
 
-	public Vertex() { this.x = 0; this.y = 0; IsTreasure = false; IsAvailable = false; previous = null; }
+	public Vertex() { this.x = 0; this.y = 0; IsTreasure = false; IsAvailable = false; }
 
-	public Vertex(int x, int y, bool t, bool a) { this.x = x; this.y = y; this.IsTreasure = t; this.IsAvailable = a; previous = null; }
-
-    public Vertex(int x, int y, bool t, bool a, Vertex prev) { this.x = x; this.y = y; this.IsTreasure = t; this.IsAvailable = a; previous = null; previous = prev; }
-
+	public Vertex(int x, int y, bool t, bool a) { this.x = x; this.y = y; this.IsTreasure = t; this.IsAvailable = a;}
+	
     public bool GetStatusTreasure() { return IsTreasure; }
 
 	public bool GetStatusMove() { return IsAvailable; }
@@ -33,6 +30,7 @@ public class Vertex
 
 	public void diableTreasure() { IsTreasure = false; }
 
+	/* Edit Contains */
     public override bool Equals(object obj)
     {
         if(obj == null || GetType() != obj.GetType())

@@ -24,6 +24,7 @@ public class Solver
 	 */
 	public string DFS()
 	{
+        nodesChecked = 0;
         // Stack for DFS
         Stack<Vertex> stack = new Stack<Vertex>();
 
@@ -73,24 +74,28 @@ public class Solver
             {
                 Vertex down = this.m.getVertex(current.x, current.y + 1);
                 stack.Push(down);
+                nodesChecked++;
             }
 
             if (this.m.isUpValid(current, this.m.getMap(), visited))
             {
                 Vertex up = this.m.getVertex(current.x, current.y - 1);
                 stack.Push(up);
+                nodesChecked++;
             }
 
             if (this.m.isLeftValid(current, this.m.getMap(), visited))
             {
                 Vertex left = this.m.getVertex(current.x - 1, current.y);
                 stack.Push(left);
+                nodesChecked++;
             }
 
             if (this.m.isRightValid(current, this.m.getMap(), visited))
             {
                 Vertex right = this.m.getVertex(current.x + 1, current.y);
                 stack.Push(right);
+                nodesChecked++;
             }
 
             bool signal = false;
@@ -182,6 +187,7 @@ public class Solver
 
     public string BFS()
     {
+        nodesChecked = 0;
         Queue<String> queue = new Queue<String>();
         queue.Enqueue("");
         String moves = "";
@@ -207,6 +213,7 @@ public class Solver
         int treasureCount = m.getTreasureCount();
         int treasureFound = 0;
         Vertex start = m.getStartingPoint(m.getMap());
+        Stack<Vertex> Treasure = new Stack<Vertex>();
         foreach (Char move in moves)
         {
             if (move == 'R')
@@ -226,9 +233,10 @@ public class Solver
                 start.y++;
             }
 
-            if (m.getVertex(start).GetStatusTreasure())
+            if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
             {
                 treasureFound++;
+                Treasure.Push(m.getVertex(start));
             }
         }
         if (treasureCount == treasureFound)
@@ -249,77 +257,83 @@ public class Solver
         Vertex start = m.getStartingPoint(m.getMap());
         Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
         Stack<Vertex> Treasure = new Stack<Vertex>();
+        int check = 0;
         foreach (Char move in moves)
         {
             if (move == 'R')
             {
-                if (!m.isRightValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getRight(start))))
+                if (!m.isRightValid(start, m.getMap(), AlreadyVisited))
                 {
                     return false;
                 }
                 else
                 {
                     start.x += 1;
-                    if (m.getVertex(start).GetStatusTreasure())
+                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
                     {
                         AlreadyVisited.Clear();
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
+                    check++;
                 }
             }
             else if (move == 'L')
             {
-                if (!m.isLeftValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getLeft(start))))
+                if (!m.isLeftValid(start, m.getMap(), AlreadyVisited))
                 {
                     return false;
                 }
                 else
                 {
                     start.x -= 1;
-                    if (m.getVertex(start).GetStatusTreasure())
+                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
                     {
                         AlreadyVisited.Clear();
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
+                    check++;
                 }
             }
             else if (move == 'U')
             {
-                if (!m.isUpValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getUp(start))))
+                if (!m.isUpValid(start, m.getMap(), AlreadyVisited))
                 {
                     return false;
                 }
                 else
                 {
                     start.y -= 1;
-                    if (m.getVertex(start).GetStatusTreasure())
+                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
                     {
                         AlreadyVisited.Clear();
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
+                    check++;
                 }
             }
             else if (move == 'D')
             {
-                if (!m.isDownValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getDown(start))))
+                if (!m.isDownValid(start, m.getMap(), AlreadyVisited))
                 {
                     return false;
                 }
                 else
                 {
                     start.y += 1;
-                    if (m.getVertex(start).GetStatusTreasure())
+                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
                     {
                         AlreadyVisited.Clear();
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
+                    check++;
                 }
             }
         }
+        nodesChecked += check;
         return true;
     }
 

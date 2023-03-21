@@ -150,146 +150,63 @@ namespace WindowsFormsApp1
             textBox2.Text = "0";
             textBox3.Text = "0";
             LoadMazeData(mazepath);
-            // Stack for DFS
-            Stack<Vertex> stack = new Stack<Vertex>();
 
-            // Already visited vertices
-            Stack<Vertex> visited = new Stack<Vertex>();
+            Solver solve = new Solver(mazepath);
+            Vertex start = solve.m.getStartingPoint(solve.m.getMap());
 
-            // Backtracked stack
-            Stack<Vertex> backtrack = new Stack<Vertex>();
+            textBox2.Text = solve.nodesChecked.ToString();
 
-            // Path stack
-            Stack<char> path = new Stack<char>();
-
-            // Start vertex
-            Solver start = new Solver(mazepath);
-
-            // Temporary vertex
-            Vertex temp = new Vertex();
-
-            // Treasure found
-            int treasureFound = 0;
-            int treasure = start.m.getTreasureCount();
-
-            // Add start vertex to queue
-            Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
-            temp = startVertex;
-            dataGridView1.Rows[startVertex.getCol()].Cells[startVertex.getRow()].Style.BackColor = System.Drawing.Color.FromArgb(115, 147, 179);
-            stack.Push(startVertex);
-
-            // Add start vertex to visited
-            visited.Push(startVertex);
-
-            // Add start vertex to backtrack
-            backtrack.Push(startVertex);
-
-            int c = 0;
-            while (stack.Count > 0 && treasureFound != treasure)
-            {
-                c++;
-                Vertex current = stack.Pop();
-                backtrack.Push(current);
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
-                visited.Push(current);
-                if (current.GetStatusTreasure())
-                {
-                    treasureFound++;
-                    dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Value = "Treasure";
-                    dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
-                }
-
-                if (start.m.isDownValid(current, start.m.getMap(), visited))
-                {
-                    Vertex down = start.m.getVertex(current.x, current.y + 1);
-                    stack.Push(down);
-                }
-
-                if (start.m.isUpValid(current, start.m.getMap(), visited))
-                {
-                    Vertex up = start.m.getVertex(current.x, current.y - 1);
-                    stack.Push(up);
-                }
-
-                if (start.m.isLeftValid(current, start.m.getMap(), visited))
-                {
-                    Vertex left = start.m.getVertex(current.x - 1, current.y);
-                    stack.Push(left);
-                }
-
-                if (start.m.isRightValid(current, start.m.getMap(), visited))
-                {
-                    Vertex right = start.m.getVertex(current.x + 1, current.y);
-                    stack.Push(right);
-                }
-
-                bool signal = false;
-                if (!start.m.isBackTrack(current, start.m.getMap(), visited))
-                {
-                    signal = true;
-                }
-
-                bool isSUS = false;
-
-                while (start.m.isBackTrack(current, start.m.getMap(), visited) && treasureFound < treasure)
-                {
-                    temp = current;
-                    current = backtrack.Pop();
-                    if (current.GetStatusTreasure() && !isSUS)
-                    {
-                        isSUS = true;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
-                        await Task.Delay(500);
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
-                    }
-                    else if (!isSUS)
-                    {
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
-                        await Task.Delay(500);
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Red;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Red;
-                    }
-                    else if (isSUS)
-                    {
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
-                        await Task.Delay(500);
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
-                        dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
-                    }
-                }
-
-                if (signal)
-                {
-                    await Task.Delay(500);
-                }
-                else
-                {
-                    temp = current;
-                    backtrack.Push(current);
-                }
-
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
-                dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Green;
-                if (current.GetStatusTreasure())
-                {
-                    dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
-                }
-
-            }
-            
-            textBox2.Text = c.ToString();
-            //}
-            //isButtonClicked = false;
-            //button.Enabled = true;
             var startTime = DateTime.Now;
-            string paths = start.DFS();
+            string paths = solve.DFS();
             var endTime = DateTime.Now;
             var runTime = endTime - startTime;
+
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+
+            await Task.Delay(500);
+
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+
+            foreach (Char move in paths)
+            {
+                if (move == 'R')
+                {
+                    start.x++;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (move == 'L')
+                {
+                    start.x--;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (move == 'U')
+                {
+                    start.y--;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (move == 'D')
+                {
+                    start.y++;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (solve.m.getVertex(start).GetStatusTreasure())
+                {
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Yellow;
+                    dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
+                }
+                await Task.Delay(500);
+                dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
+                if (!solve.m.getVertex(start).GetStatusTreasure())
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+            }
+
+
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
             //
@@ -304,24 +221,28 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //Button button = (Button)sender;
-            //if (!isButtonClicked)
-            //{
-            //    isButtonClicked = true;
-            //    button.Enabled = false;
-            /* Load ulang */
-            textBox2.Text = "0";
+
+            
             textBox3.Text = "0";
             LoadMazeData(mazepath);
 
-
             Solver solver = new Solver(mazepath);
+
+            textBox2.Text = solver.nodesChecked.ToString();
 
             var startTime = DateTime.Now;
             String path = solver.BFS();
             var endTime = DateTime.Now;
             var runTime = endTime - startTime;
             Vertex start = solver.m.getStartingPoint(solver.m.getMap());
+
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+
+            await Task.Delay(500);
+
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
 
             foreach (Char move in path)
             {

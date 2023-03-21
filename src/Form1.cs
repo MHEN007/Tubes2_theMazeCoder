@@ -232,35 +232,10 @@ namespace WindowsFormsApp1
 
                 bool isSUS = false;
 
-                if (temp != current){
-                    if (start.m.isRight(temp, current))
-                    {
-                        path.Push('R');
-                    }
-                    else if (start.m.isLeft(temp, current))
-                    {
-                        path.Push('L');
-                    }
-                    else if (start.m.isUp(temp, current))
-                    {
-                        path.Push('U');
-                    }
-                    else if (start.m.isDown(temp, current))
-                    {
-                        path.Push('D');
-                    }
-                    else 
-                    {
-                        MessageBox.Show("Error");
-                    }
-                    temp = current;
-                }
-
                 while (start.m.isBackTrack(current, start.m.getMap(), visited) && treasureFound < treasure)
                 {
                     temp = current;
                     current = backtrack.Pop();
-                    Console.WriteLine("X: {0}, Y: {1}", current.x, current.y);
                     if (current.GetStatusTreasure() && !isSUS){
                         isSUS = true;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
@@ -269,35 +244,12 @@ namespace WindowsFormsApp1
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
                     } else if (!isSUS) {
-                        if (start.m.isBackTrack(current, start.m.getMap(), visited)){
-                            path.Pop();
-                        }
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
                         await Task.Delay(500);
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Red;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Red;
                     } else if (isSUS) {
-                        if (start.m.isRight(temp, current))
-                        {
-                            path.Push('R');
-                        }
-                        else if (start.m.isLeft(temp, current))
-                        {
-                            path.Push('L');
-                        }
-                        else if (start.m.isUp(temp, current))
-                        {
-                            path.Push('U');
-                        }
-                        else if (start.m.isDown(temp, current))
-                        {
-                            path.Push('D');
-                        }
-                        else 
-                        {
-                            MessageBox.Show("Error");
-                        }
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
                         await Task.Delay(500);
@@ -329,16 +281,7 @@ namespace WindowsFormsApp1
             //}
             //isButtonClicked = false;
             //button.Enabled = true;
-            string paths = "";
-            Stack<char> reversePath = new Stack<char>();
-            while (path.Count > 0)
-            {
-                reversePath.Push(path.Pop());
-            }
-            while (reversePath.Count > 0)
-            {
-                paths += reversePath.Pop();
-            }
+            string paths = start.DFS();
             MessageBox.Show(paths, "Path", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

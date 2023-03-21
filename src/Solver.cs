@@ -18,73 +18,163 @@ public class Solver
 	 * 3. Atas
 	 * 4. Bawah
 	 */
-	public int DFS()
+	public string DFS()
 	{
-		Stack<Vertex> stack = new Stack<Vertex>();
-		Stack<Vertex> alreadyVisited = new Stack<Vertex>();
-				
-		int treasureCount = m.getTreasureCount();
-		int treasureFound = 0;
-		Vertex start = m.getStartingPoint(m.getMap());
-		stack.Push(start);
+        // Stack for DFS
+        Stack<Vertex> stack = new Stack<Vertex>();
+
+        // Already visited vertices
+        Stack<Vertex> visited = new Stack<Vertex>();
+
+        // Backtracked stack
+        Stack<Vertex> backtrack = new Stack<Vertex>();
+
+        // Path stack
+        Stack<char> path = new Stack<char>();
+
+        // Start vertex
+        // Solver start = new Solver(mazepath);
+
+        // Temporary vertex
+        Vertex temp = new Vertex();
+
+        // Treasure found
+        int treasureFound = 0;
+        int treasure = this.m.getTreasureCount();
+
+        // Add start vertex to queue
+        Vertex startVertex = this.m.getStartingPoint(this.m.getMap());
+        temp = startVertex;
+        stack.Push(startVertex);
+
+        // Add start vertex to visited
+        visited.Push(startVertex);
+
+        // Add start vertex to backtrack
+        backtrack.Push(startVertex);
+
         int c = 0;
-        while (stack.Count != 0 && treasureFound != treasureCount)
+        while (stack.Count > 0 && treasureFound != treasure)
         {
             c++;
             Vertex current = stack.Pop();
-            alreadyVisited.Push(current);
-            Console.WriteLine(c + "\nX: " + current.x + " Y: " + current.y);
+            backtrack.Push(current);
+            visited.Push(current);
             if (current.GetStatusTreasure())
             {
                 treasureFound++;
-                Console.Write("Treasure found at " + current.x + " " + current.y + "\n");
             }
-            if (m.isDownValid(current, m.getMap(), alreadyVisited))
+
+            if (this.m.isDownValid(current, this.m.getMap(), visited))
             {
-                Vertex down = m.getVertex(current.x, current.y + 1);
+                Vertex down = this.m.getVertex(current.x, current.y + 1);
                 stack.Push(down);
-                Console.Write("Going down\n");
-            }else{				// backtrack
-				Console.Write("Backtracking down\n");
-			}
-			if (m.isUpValid(current, m.getMap(), alreadyVisited))
-			{
-				Vertex up = m.getVertex(current.x, current.y - 1);
-				stack.Push(up);
-				Console.Write("Going up\n");
-			}else{				// backtrack
-				Console.Write("Backtracking Up\n");
-			}
-            if (m.isLeftValid(current, m.getMap(), alreadyVisited))
+            }
+
+            if (this.m.isUpValid(current, this.m.getMap(), visited))
             {
-                Vertex left = m.getVertex(current.x - 1, current.y);
+                Vertex up = this.m.getVertex(current.x, current.y - 1);
+                stack.Push(up);
+            }
+
+            if (this.m.isLeftValid(current, this.m.getMap(), visited))
+            {
+                Vertex left = this.m.getVertex(current.x - 1, current.y);
                 stack.Push(left);
-                Console.Write("Going left\n");
             }
-            else
-            {               // backtrack
-                Console.Write("Backtracking Left\n");
-            }
-            if (m.isRightValid(current, m.getMap(), alreadyVisited))
+
+            if (this.m.isRightValid(current, this.m.getMap(), visited))
             {
-                Vertex right = m.getVertex(current.x + 1, current.y);
+                Vertex right = this.m.getVertex(current.x + 1, current.y);
                 stack.Push(right);
-                Console.Write("Going right\n");
             }
-            else
-            {           // backtrack
-                Console.Write("Backtracking Right\n");
+
+            bool signal = false;
+            if (!this.m.isBackTrack(current, this.m.getMap(), visited)){
+                signal = true;
             }
-            // backtrack
-            if (m.isBackTrack(current, m.getMap(), alreadyVisited))
+
+            bool isSUS = false;
+
+            if (temp != current){
+                if (this.m.isRight(temp, current))
+                {
+                    path.Push('R');
+                }
+                else if (this.m.isLeft(temp, current))
+                {
+                    path.Push('L');
+                }
+                else if (this.m.isUp(temp, current))
+                {
+                    path.Push('U');
+                }
+                else if (this.m.isDown(temp, current))
+                {
+                    path.Push('D');
+                }
+                else 
+                {
+                    MessageBox.Show("Error");
+                }
+                temp = current;
+            }
+
+            while (this.m.isBackTrack(current, this.m.getMap(), visited) && treasureFound < treasure)
             {
-                Vertex backtrack = m.getVertex(current.x, current.y);
-                stack.Push(backtrack);
-                Console.Write("Backtracking\n");
+                temp = current;
+                current = backtrack.Pop();
+                if (current.GetStatusTreasure() && !isSUS){
+                    isSUS = true;
+                } else if (!isSUS) {
+                    if (this.m.isBackTrack(current, this.m.getMap(), visited)){
+                        path.Pop();
+                    }
+                } else if (isSUS) {
+                    if (this.m.isRight(temp, current))
+                    {
+                        path.Push('R');
+                    }
+                    else if (this.m.isLeft(temp, current))
+                    {
+                        path.Push('L');
+                    }
+                    else if (this.m.isUp(temp, current))
+                    {
+                        path.Push('U');
+                    }
+                    else if (this.m.isDown(temp, current))
+                    {
+                        path.Push('D');
+                    }
+                    else 
+                    {
+                        MessageBox.Show("Error");
+                    }
+                }
             }
+
+            if (!signal){
+                temp = current;
+                backtrack.Push(current);
+            }
+
         }
-        return c;
-	}
+
+        string paths = "";
+        Stack<char> reversePath = new Stack<char>();
+        while (path.Count > 0)
+        {
+            reversePath.Push(path.Pop());
+        }
+        
+        while (reversePath.Count > 0)
+        {
+            paths += reversePath.Pop();
+        }
+        
+        return paths;
+    }
 
 	public int BFS()
 	{

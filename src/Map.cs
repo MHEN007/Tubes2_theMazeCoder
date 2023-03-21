@@ -196,4 +196,24 @@ public class Map
 	{
 		Buffer[point.y, point.x] = point;
 	}
+
+	public bool isRight(Vertex p1, Vertex p2)
+	{
+		return (p1.y == p2.y && p1.x + 1 == p2.x);
+	}
+
+	public bool isLeft(Vertex p1, Vertex p2)
+	{
+		return (p1.y == p2.y && p1.x - 1 == p2.x);
+	}
+
+	public bool isUp(Vertex p1, Vertex p2)
+	{
+		return (p1.y - 1 == p2.y && p1.x == p2.x);
+	}
+
+	public bool isDown(Vertex p1, Vertex p2)
+	{
+		return (p1.y + 1 == p2.y && p1.x == p2.x);
+	}
 }

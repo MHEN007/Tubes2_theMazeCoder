@@ -5,7 +5,11 @@ public class Solver
 {
 	public Map m;
 
-	public Solver() { m = new Map("./test/config.txt"); }
+    public int nodesChecked = 0;
+
+    private String[] move = { "R", "L", "U", "D" };
+
+    public Solver() { m = new Map("./test/config.txt"); }
 
 	public Solver(string fileName)
 	{
@@ -176,55 +180,147 @@ public class Solver
         return paths;
     }
 
-	public int BFS()
-	{
-		Queue<Vertex> queue = new Queue<Vertex>();
-		Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
+    public string BFS()
+    {
+        Queue<String> queue = new Queue<String>();
+        queue.Enqueue("");
+        String moves = "";
+        while (!FindTreasure(moves))
+        {
+            moves = queue.Dequeue();
+            for (int i = 0; i < 4; i++)
+            {
+                if (ValidMove(moves + move[i]))
+                {
+                    queue.Enqueue(moves + move[i]);
+                }
+            }
+        }
+        return moves;
+    }
 
+    /* Untuk menentukan apakah gerakan sudah dapat memenuhi syarat
+     * Syarat: Semua harta karun ditemukan 
+     */
+    public bool FindTreasure(String moves)
+    {
         int treasureCount = m.getTreasureCount();
         int treasureFound = 0;
         Vertex start = m.getStartingPoint(m.getMap());
-        queue.Enqueue(start);
-        int c = 0;
+        foreach (Char move in moves)
+        {
+            if (move == 'R')
+            {
+                start.x++;
+            }
+            else if (move == 'L')
+            {
+                start.x--;
+            }
+            else if (move == 'U')
+            {
+                start.y--;
+            }
+            else if (move == 'D')
+            {
+                start.y++;
+            }
 
-		while (queue.Count > 0 && treasureCount != treasureFound)
-		{
-			c++;
-			Vertex current = queue.Dequeue();
-			AlreadyVisited.Push(current);
-            Console.WriteLine(c + "\nX: " + current.x + " Y: " + current.y);
-            if (current.GetStatusTreasure())
+            if (m.getVertex(start).GetStatusTreasure())
             {
                 treasureFound++;
-                Console.Write("Treasure found at " + current.x + " " + current.y + "\n");
-            }
-            if (m.isRightValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x + 1, current.y)))
-            {
-                Vertex right = m.getVertex(current.x + 1, current.y);
-                queue.Enqueue(right);
-                Console.Write("Going right\n");
-            }
-            if (m.isLeftValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x - 1, current.y)))
-            {
-                Vertex left = m.getVertex(current.x - 1, current.y);
-                queue.Enqueue(left);
-                Console.Write("Going left\n");
-            }
-            if (m.isUpValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y - 1)))
-            {
-                Vertex up = m.getVertex(current.x, current.y - 1);
-                queue.Enqueue(up);
-                Console.Write("Going up\n");
-            }
-            if (m.isDownValid(current, m.getMap(), AlreadyVisited) && !AlreadyVisited.Contains(m.getVertex(current.x, current.y + 1)))
-            {
-                Vertex down = m.getVertex(current.x, current.y + 1);
-                queue.Enqueue(down);
-                Console.Write("Going down\n");
             }
         }
-        return c;
-
+        if (treasureCount == treasureFound)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-	
+
+    /* Untuk menentukan apakah gerakan sudah valid atau belum
+     * Gerakan valid: Tidak melanggar peta, belum mengunjungi node
+     */
+    public bool ValidMove(String moves)
+    {
+        Vertex start = m.getStartingPoint(m.getMap());
+        Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
+        Stack<Vertex> Treasure = new Stack<Vertex>();
+        foreach (Char move in moves)
+        {
+            if (move == 'R')
+            {
+                if (!m.isRightValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getRight(start))))
+                {
+                    return false;
+                }
+                else
+                {
+                    start.x += 1;
+                    if (m.getVertex(start).GetStatusTreasure())
+                    {
+                        AlreadyVisited.Clear();
+                        Treasure.Push(m.getVertex(start));
+                    }
+                    AlreadyVisited.Push(m.getVertex(start));
+                }
+            }
+            else if (move == 'L')
+            {
+                if (!m.isLeftValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getLeft(start))))
+                {
+                    return false;
+                }
+                else
+                {
+                    start.x -= 1;
+                    if (m.getVertex(start).GetStatusTreasure())
+                    {
+                        AlreadyVisited.Clear();
+                        Treasure.Push(m.getVertex(start));
+                    }
+                    AlreadyVisited.Push(m.getVertex(start));
+                }
+            }
+            else if (move == 'U')
+            {
+                if (!m.isUpValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getUp(start))))
+                {
+                    return false;
+                }
+                else
+                {
+                    start.y -= 1;
+                    if (m.getVertex(start).GetStatusTreasure())
+                    {
+                        AlreadyVisited.Clear();
+                        Treasure.Push(m.getVertex(start));
+                    }
+                    AlreadyVisited.Push(m.getVertex(start));
+                }
+            }
+            else if (move == 'D')
+            {
+                if (!m.isDownValid(start, m.getMap(), AlreadyVisited) || Treasure.Contains(m.getVertex(m.getDown(start))))
+                {
+                    return false;
+                }
+                else
+                {
+                    start.y += 1;
+                    if (m.getVertex(start).GetStatusTreasure())
+                    {
+                        AlreadyVisited.Clear();
+                        Treasure.Push(m.getVertex(start));
+                    }
+                    AlreadyVisited.Push(m.getVertex(start));
+                }
+            }
+        }
+        return true;
+    }
+
 }

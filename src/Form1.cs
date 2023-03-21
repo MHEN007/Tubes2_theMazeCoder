@@ -185,7 +185,6 @@ namespace WindowsFormsApp1
             backtrack.Push(startVertex);
 
             int c = 0;
-            var startTime = DateTime.Now;
             while (stack.Count > 0 && treasureFound != treasure)
             {
                 c++;
@@ -226,7 +225,8 @@ namespace WindowsFormsApp1
                 }
 
                 bool signal = false;
-                if (!start.m.isBackTrack(current, start.m.getMap(), visited)){
+                if (!start.m.isBackTrack(current, start.m.getMap(), visited))
+                {
                     signal = true;
                 }
 
@@ -236,20 +236,25 @@ namespace WindowsFormsApp1
                 {
                     temp = current;
                     current = backtrack.Pop();
-                    if (current.GetStatusTreasure() && !isSUS){
+                    if (current.GetStatusTreasure() && !isSUS)
+                    {
                         isSUS = true;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
                         await Task.Delay(500);
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Green;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
-                    } else if (!isSUS) {
+                    }
+                    else if (!isSUS)
+                    {
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
                         await Task.Delay(500);
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Red;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Red;
-                    } else if (isSUS) {
+                    }
+                    else if (isSUS)
+                    {
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.BackColor = System.Drawing.Color.Blue;
                         dataGridView1.Rows[current.getCol()].Cells[current.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
                         await Task.Delay(500);
@@ -258,9 +263,12 @@ namespace WindowsFormsApp1
                     }
                 }
 
-                if (signal){
+                if (signal)
+                {
                     await Task.Delay(500);
-                } else {
+                }
+                else
+                {
                     temp = current;
                     backtrack.Push(current);
                 }
@@ -273,16 +281,19 @@ namespace WindowsFormsApp1
                 }
 
             }
-            var endTime = DateTime.Now;
+            
             textBox2.Text = c.ToString();
-            var runTime = endTime - startTime;
-            int run = runTime.Milliseconds;
-            textBox3.Text = run.ToString();
             //}
             //isButtonClicked = false;
             //button.Enabled = true;
+            var startTime = DateTime.Now;
             string paths = start.DFS();
-            MessageBox.Show(paths, "Path", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var endTime = DateTime.Now;
+            var runTime = endTime - startTime;
+            int run = runTime.Milliseconds;
+            textBox3.Text = run.ToString();
+            //
+            textBox4.Text = paths;
         }
 
         /* BFS */
@@ -298,112 +309,66 @@ namespace WindowsFormsApp1
             //{
             //    isButtonClicked = true;
             //    button.Enabled = false;
-                /* Load ulang */
+            /* Load ulang */
             textBox2.Text = "0";
             textBox3.Text = "0";
             LoadMazeData(mazepath);
-            // Queue for BFS
-            Queue<Vertex> queue = new Queue<Vertex>();
 
-            // Already visited vertices
-            Stack<Vertex> visited = new Stack<Vertex>();
 
-            // Start vertex
-            Solver start = new Solver(mazepath);
+            Solver solver = new Solver(mazepath);
 
-            // Treasure found
-            int treasureFound = 0;
-            int treasure = start.m.getTreasureCount();
-
-            // Add start vertex to queue
-            Vertex startVertex = start.m.getStartingPoint(start.m.getMap());
-            queue.Enqueue(startVertex);
-
-            // Add start vertex to visited
-            visited.Push(startVertex);
-
-            int c = 0;
-            // While queue is not empty
             var startTime = DateTime.Now;
-            while (queue.Count > 0 && treasure != treasureFound)
-            {
-                c++;
-                // Dequeue vertex
-                Vertex currentVertex = queue.Dequeue();
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.Blue;
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Blue;
-                visited.Push(currentVertex);
-                // If treasure is found
-                if (currentVertex.GetStatusTreasure())
-                {
-                    // Increment treasure found
-                    treasureFound++;
-                    dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Value = "Treasure";
-                    dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
-                }
-
-                if (start.m.isRightValid(currentVertex, start.m.getMap(), visited))
-                {
-                    Vertex rightVertex = start.m.getRight(currentVertex);
-                    if (!visited.Contains(rightVertex))
-                    {
-                        queue.Enqueue(rightVertex);
-                        visited.Push(rightVertex);
-                    }
-                }
-
-                if (start.m.isLeftValid(currentVertex, start.m.getMap(), visited))
-                {
-                    Vertex leftVertex = start.m.getLeft(currentVertex);
-                    if (!visited.Contains(leftVertex))
-                    {
-                        queue.Enqueue(leftVertex);
-                        visited.Push(leftVertex);
-                    }
-                }
-
-                if (start.m.isUpValid(currentVertex, start.m.getMap(), visited))
-                {
-                    Vertex upVertex = start.m.getUp(currentVertex);
-                    if (!visited.Contains(upVertex))
-                    {
-                        queue.Enqueue(upVertex);
-                        visited.Push(upVertex);
-                    }
-                }
-
-                if (start.m.isDownValid(currentVertex, start.m.getMap(), visited))
-                {
-                    Vertex downVertex = start.m.getDown(currentVertex);
-                    if (!visited.Contains(downVertex))
-                    {
-                        queue.Enqueue(downVertex);
-                        visited.Push(downVertex);
-                    }
-                }
-
-
-                // Wait for 100 milliseconds before updating the DataGridView
-                await Task.Delay(500);
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.BackColor = System.Drawing.Color.Green;
-                dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Green;
-                if (currentVertex.GetStatusTreasure())
-                {
-                    dataGridView1.Rows[currentVertex.getCol()].Cells[currentVertex.getRow()].Style.ForeColor = System.Drawing.Color.Yellow;
-                    queue.Clear();
-                    currentVertex.diableTreasure();
-                    queue.Enqueue(currentVertex);
-                
-                }
-            }
+            String path = solver.BFS();
             var endTime = DateTime.Now;
-            textBox2.Text = c.ToString();
             var runTime = endTime - startTime;
+            Vertex start = solver.m.getStartingPoint(solver.m.getMap());
+
+            foreach (Char move in path)
+            {
+                if (move == 'R')
+                {
+                    start.x++;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (move == 'L')
+                {
+                    start.x--;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (move == 'U')
+                {
+                    start.y--;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (move == 'D')
+                {
+                    start.y++;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                }
+                if (solver.m.getVertex(start).GetStatusTreasure())
+                {
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Yellow;
+                    dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
+                }
+                await Task.Delay(500);
+                dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
+                if (!solver.m.getVertex(start).GetStatusTreasure())
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+            }
+
+
+            //textBox2.Text = c.ToString();
+
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
             //}
             //isButtonClicked = false;
             //button.Enabled = true;
+            textBox4.Text = path;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -438,15 +403,15 @@ namespace WindowsFormsApp1
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if(radioButton1.Checked)
+            if (radioButton1.Checked)
             {
                 DFS();
             }
-            else if(radioButton2.Checked)
+            else if (radioButton2.Checked)
             {
                 BFS();
             }
-            else if(radioButton3.Checked)
+            else if (radioButton3.Checked)
             {
                 // TSP();
             }

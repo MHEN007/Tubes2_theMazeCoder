@@ -169,8 +169,10 @@ namespace WindowsFormsApp1
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
 
+            int c = 0;
             foreach (Char move in paths)
             {
+                c++;
                 if (move == 'R')
                 {
                     start.x++;
@@ -207,10 +209,13 @@ namespace WindowsFormsApp1
             }
 
 
+            textBox2.Text = c.ToString();
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
             //
             textBox4.Text = paths;
+
+            textBox5.Text = solve.nodesChecked.ToString();
         }
 
         /* BFS */
@@ -222,7 +227,7 @@ namespace WindowsFormsApp1
                 return;
             }
 
-            
+
             textBox3.Text = "0";
             LoadMazeData(mazepath);
 
@@ -244,8 +249,10 @@ namespace WindowsFormsApp1
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
 
+            int c = 0;
             foreach (Char move in path)
             {
+                c++;
                 if (move == 'R')
                 {
                     start.x++;
@@ -282,7 +289,7 @@ namespace WindowsFormsApp1
             }
 
 
-            //textBox2.Text = c.ToString();
+            textBox2.Text = c.ToString();
 
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
@@ -290,6 +297,7 @@ namespace WindowsFormsApp1
             //isButtonClicked = false;
             //button.Enabled = true;
             textBox4.Text = path;
+            textBox5.Text = solver.nodesChecked.ToString();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

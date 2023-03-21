@@ -5,7 +5,7 @@ public class Solver
 {
 	public Map m;
 
-    public int nodesChecked = 0;
+    public int nodesChecked;
 
     private String[] move = { "R", "L", "U", "D" };
 
@@ -59,6 +59,12 @@ public class Solver
         backtrack.Push(startVertex);
 
         int c = 0;
+        /* Proses: Periksa semua arah pada peta hingga jumlah treasureHitung = treasurePeta
+         * Iterasikan dengan Stack hingga tidak ada arah yang bisa dilanjutkan.
+         * Setiap iterasi node, catat dalam stack sudah dikunjungi
+         * Ketika hal tsb. terjadi, lakukan backtrack hingga ada arah yang bisa dilanjutkan
+         * Lanjutkan hingga kondisi while menjadi false
+         */
         while (stack.Count > 0 && treasureFound != treasure)
         {
             c++;
@@ -191,6 +197,14 @@ public class Solver
         Queue<String> queue = new Queue<String>();
         queue.Enqueue("");
         String moves = "";
+        /* Proses: Dengan queue, iterasikan gerakan yang memungkinkan dari suatu titik
+         * Jika ada yang bisa digerakkan, masukkan ke pathnya dan masukkan ke stack
+         * visited nodes.
+         * Untuk path yang dienqueue dari queue, lakukan pemeriksaan apakah berhasil
+         * mencari semua treasure atau tidak, dengan memerhatikan aturan gerakan.
+         * Pada proses pencarian, jika ditemukan node treasure, kosongkan visited Nodes dan catat
+         * lokasi treasure
+         */
         while (!FindTreasure(moves))
         {
             moves = queue.Dequeue();
@@ -201,7 +215,9 @@ public class Solver
                     queue.Enqueue(moves + move[i]);
                 }
             }
+            nodesChecked++;
         }
+        nodesChecked--;
         return moves;
     }
 
@@ -257,7 +273,6 @@ public class Solver
         Vertex start = m.getStartingPoint(m.getMap());
         Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
         Stack<Vertex> Treasure = new Stack<Vertex>();
-        int check = 0;
         foreach (Char move in moves)
         {
             if (move == 'R')
@@ -275,7 +290,6 @@ public class Solver
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
-                    check++;
                 }
             }
             else if (move == 'L')
@@ -293,7 +307,6 @@ public class Solver
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
-                    check++;
                 }
             }
             else if (move == 'U')
@@ -311,7 +324,6 @@ public class Solver
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
-                    check++;
                 }
             }
             else if (move == 'D')
@@ -329,11 +341,9 @@ public class Solver
                         Treasure.Push(m.getVertex(start));
                     }
                     AlreadyVisited.Push(m.getVertex(start));
-                    check++;
                 }
             }
         }
-        nodesChecked += check;
         return true;
     }
 

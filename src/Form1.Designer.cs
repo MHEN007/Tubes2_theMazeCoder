@@ -48,6 +48,8 @@ namespace WindowsFormsApp1
             pictureBox4 = new PictureBox();
             button2 = new Button();
             textBox4 = new TextBox();
+            label3 = new Label();
+            textBox5 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -127,14 +129,14 @@ namespace WindowsFormsApp1
             label1.Location = new Point(486, 568);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(133, 25);
+            label1.Size = new Size(55, 25);
             label1.TabIndex = 6;
-            label1.Text = "Jumlah Operasi";
+            label1.Text = "Steps";
             label1.Click += label1_Click;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(625, 564);
+            textBox2.Location = new Point(545, 568);
             textBox2.Margin = new Padding(2);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
@@ -144,7 +146,7 @@ namespace WindowsFormsApp1
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(788, 568);
+            label2.Location = new Point(799, 568);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
             label2.Size = new Size(112, 25);
@@ -155,7 +157,7 @@ namespace WindowsFormsApp1
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(906, 564);
+            textBox3.Location = new Point(915, 568);
             textBox3.Margin = new Padding(2);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
@@ -168,7 +170,7 @@ namespace WindowsFormsApp1
             radioButton1.BackColor = Color.Transparent;
             radioButton1.BackgroundImageLayout = ImageLayout.Zoom;
             radioButton1.Location = new Point(79, 335);
-            radioButton1.Margin = new Padding(4, 4, 4, 4);
+            radioButton1.Margin = new Padding(4);
             radioButton1.Name = "radioButton1";
             radioButton1.Size = new Size(21, 20);
             radioButton1.TabIndex = 12;
@@ -181,7 +183,7 @@ namespace WindowsFormsApp1
             radioButton2.AutoSize = true;
             radioButton2.BackColor = Color.Transparent;
             radioButton2.Location = new Point(80, 422);
-            radioButton2.Margin = new Padding(4, 4, 4, 4);
+            radioButton2.Margin = new Padding(4);
             radioButton2.Name = "radioButton2";
             radioButton2.Size = new Size(21, 20);
             radioButton2.TabIndex = 13;
@@ -194,7 +196,7 @@ namespace WindowsFormsApp1
             radioButton3.AutoSize = true;
             radioButton3.BackColor = Color.Transparent;
             radioButton3.Location = new Point(80, 498);
-            radioButton3.Margin = new Padding(4, 4, 4, 4);
+            radioButton3.Margin = new Padding(4);
             radioButton3.Name = "radioButton3";
             radioButton3.Size = new Size(21, 20);
             radioButton3.TabIndex = 14;
@@ -207,7 +209,7 @@ namespace WindowsFormsApp1
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox2.Location = new Point(108, 306);
-            pictureBox2.Margin = new Padding(4, 4, 4, 4);
+            pictureBox2.Margin = new Padding(4);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(225, 78);
             pictureBox2.TabIndex = 15;
@@ -219,7 +221,7 @@ namespace WindowsFormsApp1
             pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox3.Location = new Point(108, 391);
-            pictureBox3.Margin = new Padding(4, 4, 4, 4);
+            pictureBox3.Margin = new Padding(4);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(225, 78);
             pictureBox3.TabIndex = 16;
@@ -231,7 +233,7 @@ namespace WindowsFormsApp1
             pictureBox4.BackgroundImage = (Image)resources.GetObject("pictureBox4.BackgroundImage");
             pictureBox4.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox4.Location = new Point(108, 476);
-            pictureBox4.Margin = new Padding(4, 4, 4, 4);
+            pictureBox4.Margin = new Padding(4);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(96, 78);
             pictureBox4.TabIndex = 17;
@@ -248,7 +250,7 @@ namespace WindowsFormsApp1
             button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button2.FlatStyle = FlatStyle.Flat;
             button2.Location = new Point(89, 582);
-            button2.Margin = new Padding(4, 4, 4, 4);
+            button2.Margin = new Padding(4);
             button2.Name = "button2";
             button2.Size = new Size(222, 96);
             button2.TabIndex = 18;
@@ -257,10 +259,31 @@ namespace WindowsFormsApp1
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(517, 615);
+            textBox4.Location = new Point(519, 615);
             textBox4.Name = "textBox4";
+            textBox4.ReadOnly = true;
             textBox4.Size = new Size(445, 31);
             textBox4.TabIndex = 19;
+            textBox4.Text = "Paths";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(636, 568);
+            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(64, 25);
+            label3.TabIndex = 20;
+            label3.Text = "Nodes";
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(704, 568);
+            textBox5.Margin = new Padding(2);
+            textBox5.Name = "textBox5";
+            textBox5.ReadOnly = true;
+            textBox5.Size = new Size(75, 31);
+            textBox5.TabIndex = 21;
             // 
             // Form1
             // 
@@ -270,6 +293,8 @@ namespace WindowsFormsApp1
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1090, 704);
+            Controls.Add(textBox5);
+            Controls.Add(label3);
             Controls.Add(textBox4);
             Controls.Add(button2);
             Controls.Add(pictureBox4);
@@ -288,7 +313,7 @@ namespace WindowsFormsApp1
             Controls.Add(pictureBox1);
             Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
-            Padding = new Padding(12, 12, 12, 12);
+            Padding = new Padding(12);
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -321,6 +346,8 @@ namespace WindowsFormsApp1
         private PictureBox pictureBox4;
         private Button button2;
         private TextBox textBox4;
+        private Label label3;
+        private TextBox textBox5;
     }
 }
 

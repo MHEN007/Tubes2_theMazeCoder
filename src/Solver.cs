@@ -37,8 +37,8 @@ public class Solver
         // Path stack
         Stack<char> path = new Stack<char>();
 
-        // Start vertex
-        // Solver start = new Solver(mazepath);
+        // Safe Route Stack
+        Stack<Vertex> safeRoute = new Stack<Vertex>();
 
         // Temporary vertex
         Vertex temp = new Vertex();
@@ -65,107 +65,111 @@ public class Solver
          * Ketika hal tsb. terjadi, lakukan backtrack hingga ada arah yang bisa dilanjutkan
          * Lanjutkan hingga kondisi while menjadi false
          */
-        while (stack.Count > 0 && treasureFound != treasure)
-        {
+
+        // Current vertex
+        Vertex current;
+
+        // Neighbour vertices
+        Vertex down;
+        Vertex up;
+        Vertex left;
+        Vertex right;
+
+        // Signal for backtracking
+        bool signal;
+
+        // Path contains treasure
+        bool pathContainTreasure;
+
+        // Path string
+        string paths = "";
+
+        // Reverse path stack
+        Stack<char> reversePath = new Stack<char>();
+
+        while (stack.Count > 0 && treasureFound != treasure) {
             c++;
-            Vertex current = stack.Pop();
+            do {
+                current = stack.Pop();
+            } while (visited.Contains(current) && stack.Count > 0);
+
             backtrack.Push(current);
             visited.Push(current);
-            if (current.GetStatusTreasure())
-            {
+            if (current.GetStatusTreasure()) {
                 treasureFound++;
             }
 
-            if (this.m.isDownValid(current, this.m.getMap(), visited))
-            {
-                Vertex down = this.m.getVertex(current.x, current.y + 1);
+            if (this.m.isDownValid(current, this.m.getMap(), visited)) {
+                down = this.m.getVertex(current.x, current.y + 1);
                 stack.Push(down);
                 nodesChecked++;
             }
 
-            if (this.m.isUpValid(current, this.m.getMap(), visited))
-            {
-                Vertex up = this.m.getVertex(current.x, current.y - 1);
+            if (this.m.isUpValid(current, this.m.getMap(), visited)) {
+                up = this.m.getVertex(current.x, current.y - 1);
                 stack.Push(up);
                 nodesChecked++;
             }
 
-            if (this.m.isLeftValid(current, this.m.getMap(), visited))
-            {
-                Vertex left = this.m.getVertex(current.x - 1, current.y);
+            if (this.m.isLeftValid(current, this.m.getMap(), visited)) {
+                left = this.m.getVertex(current.x - 1, current.y);
                 stack.Push(left);
                 nodesChecked++;
             }
 
-            if (this.m.isRightValid(current, this.m.getMap(), visited))
-            {
-                Vertex right = this.m.getVertex(current.x + 1, current.y);
+            if (this.m.isRightValid(current, this.m.getMap(), visited)) {
+                right = this.m.getVertex(current.x + 1, current.y);
                 stack.Push(right);
                 nodesChecked++;
             }
 
-            bool signal = false;
-            if (!this.m.isBackTrack(current, this.m.getMap(), visited)){
-                signal = true;
-            }
+            signal = !this.m.isBackTrack(current, this.m.getMap(), visited);
+            pathContainTreasure = false;
 
-            bool isSUS = false;
-
+            /* Pencarian path jalur normal */
             if (temp != current){
-                if (this.m.isRight(temp, current))
-                {
+                if (this.m.isRight(temp, current)) {
                     path.Push('R');
-                }
-                else if (this.m.isLeft(temp, current))
-                {
+                } else if (this.m.isLeft(temp, current)) {
                     path.Push('L');
-                }
-                else if (this.m.isUp(temp, current))
-                {
+                } else if (this.m.isUp(temp, current)) {
                     path.Push('U');
-                }
-                else if (this.m.isDown(temp, current))
-                {
+                } else if (this.m.isDown(temp, current)){
                     path.Push('D');
-                }
-                else 
-                {
-                    MessageBox.Show("Error");
+                } else {
+                    MessageBox.Show("Error 1, temp: " + temp.x + "," + temp.y + " current: " + current.x + "," + current.y);
                 }
                 temp = current;
             }
 
-            while (this.m.isBackTrack(current, this.m.getMap(), visited) && treasureFound < treasure)
-            {
+            /* Pencarian path backtracking */
+            while (this.m.isBackTrack(current, this.m.getMap(), visited) && treasureFound < treasure) {
                 temp = current;
                 current = backtrack.Pop();
-                if (current.GetStatusTreasure() && !isSUS){
-                    isSUS = true;
-                } else if (!isSUS) {
+                
+                if (current.GetStatusTreasure() && !pathContainTreasure){
+                    pathContainTreasure = true;
+                } else if (!pathContainTreasure && safeRoute.Contains(current)){
+                    pathContainTreasure = true;
+                } else if (!pathContainTreasure) {
                     if (this.m.isBackTrack(current, this.m.getMap(), visited)){
                         path.Pop();
                     }
-                } else if (isSUS) {
-                    if (this.m.isRight(temp, current))
-                    {
+                } else if (pathContainTreasure) {
+                    if (this.m.isRight(temp, current)) {
                         path.Push('R');
-                    }
-                    else if (this.m.isLeft(temp, current))
-                    {
+                    } else if (this.m.isLeft(temp, current)) {
                         path.Push('L');
-                    }
-                    else if (this.m.isUp(temp, current))
-                    {
+                    } else if (this.m.isUp(temp, current)) {
                         path.Push('U');
-                    }
-                    else if (this.m.isDown(temp, current))
-                    {
+                    } else if (this.m.isDown(temp, current)) {
                         path.Push('D');
+                    } else {
+                        MessageBox.Show("Error 2 temp: " + temp.x + "," + temp.y + " current: " + current.x + "," + current.y);
                     }
-                    else 
-                    {
-                        MessageBox.Show("Error");
-                    }
+                }
+                if (pathContainTreasure && !this.m.isBackTrack(current, this.m.getMap(), visited)){
+                    safeRoute.Push(current);
                 }
             }
 
@@ -173,21 +177,16 @@ public class Solver
                 temp = current;
                 backtrack.Push(current);
             }
-
+            
         }
 
-        string paths = "";
-        Stack<char> reversePath = new Stack<char>();
-        while (path.Count > 0)
-        {
+        while (path.Count > 0) {
             reversePath.Push(path.Pop());
         }
-        
-        while (reversePath.Count > 0)
-        {
+        while (reversePath.Count > 0) {
             paths += reversePath.Pop();
-        }
-        
+        }   
+
         return paths;
     }
 

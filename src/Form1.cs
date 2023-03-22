@@ -9,6 +9,7 @@ namespace WindowsFormsApp1
     {
         string mazepath;
         bool isButtonClicked = false;
+        int delay;
         public Form1()
         {
             InitializeComponent();
@@ -141,12 +142,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //Button button = (Button)sender;
-            //if (!isButtonClicked)
-            //{
-            //isButtonClicked = true;
-            //button.Enabled = false;
-            /* Load ulang */
+
             textBox2.Text = "0";
             textBox3.Text = "0";
             LoadMazeData(mazepath);
@@ -164,7 +160,7 @@ namespace WindowsFormsApp1
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
 
-            await Task.Delay(500);
+            await Task.Delay(trackBar1.Value);
 
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
@@ -202,7 +198,7 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Yellow;
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
-                await Task.Delay(500);
+                await Task.Delay(trackBar1.Value);
                 dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
                 if (!solve.m.getVertex(start).GetStatusTreasure())
                     dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
@@ -212,7 +208,7 @@ namespace WindowsFormsApp1
             textBox2.Text = c.ToString();
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
-            //
+
             textBox4.Text = paths;
 
             textBox5.Text = solve.nodesChecked.ToString();
@@ -226,8 +222,7 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-
+            /* Load ulang */
             textBox3.Text = "0";
             LoadMazeData(mazepath);
 
@@ -244,7 +239,7 @@ namespace WindowsFormsApp1
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
 
-            await Task.Delay(500);
+            await Task.Delay(trackBar1.Value);
 
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
@@ -282,7 +277,7 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Yellow;
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
-                await Task.Delay(500);
+                await Task.Delay(trackBar1.Value);
                 dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
                 if (!solver.m.getVertex(start).GetStatusTreasure())
                     dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
@@ -293,9 +288,6 @@ namespace WindowsFormsApp1
 
             int run = runTime.Milliseconds;
             textBox3.Text = run.ToString();
-            //}
-            //isButtonClicked = false;
-            //button.Enabled = true;
             textBox4.Text = path;
             textBox5.Text = solver.nodesChecked.ToString();
         }
@@ -332,18 +324,37 @@ namespace WindowsFormsApp1
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            Button button = (Button)sender;
+            if (!isButtonClicked)
             {
-                DFS();
+                isButtonClicked = true;
+                button.Enabled = false;
+
+                if (radioButton1.Checked)
+                {
+                    DFS();
+                }
+                else if (radioButton2.Checked)
+                {
+                    BFS();
+                }
+                else if (radioButton3.Checked)
+                {
+                    // TSP();
+                }
             }
-            else if (radioButton2.Checked)
-            {
-                BFS();
-            }
-            else if (radioButton3.Checked)
-            {
-                // TSP();
-            }
+            isButtonClicked = false;
+            button.Enabled = true;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

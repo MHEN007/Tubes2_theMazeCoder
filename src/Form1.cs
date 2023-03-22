@@ -9,7 +9,6 @@ namespace WindowsFormsApp1
     {
         string mazepath;
         bool isButtonClicked = false;
-        int delay;
         public Form1()
         {
             InitializeComponent();
@@ -120,6 +119,25 @@ namespace WindowsFormsApp1
                     mazepath = openFileDialog1.FileName;
                     try
                     {
+                        string[] lines = File.ReadAllLines(selectedFileName);
+
+                        if (lines.Length == 0)
+                        {
+                            throw new Exception("File is empty.");
+                        }
+
+                        foreach (string line in lines)
+                        {
+                            string[] characters = line.Split(' ');
+
+                            foreach (string character in characters)
+                            {
+                                if (character != "K" && character != "R" && character != "T" && character != "X")
+                                {
+                                    throw new Exception("Invalid character found.");
+                                }
+                            }
+                        }
                         LoadMazeData(selectedFileName);
                         SetDataGridView();
                     }

@@ -150,6 +150,12 @@ namespace WindowsFormsApp1
             Solver solve = new Solver(mazepath);
             Vertex start = solve.m.getStartingPoint(solve.m.getMap());
 
+            List <Vertex> colorList = new List<Vertex>();
+            List <int> colorCount = new List<int>();
+
+            colorList.Add(solve.m.getVertex(start.x, start.y));
+            colorCount.Add(0);
+
             textBox2.Text = solve.nodesChecked.ToString();
 
             var startTime = DateTime.Now;
@@ -162,8 +168,8 @@ namespace WindowsFormsApp1
 
             await Task.Delay(trackBar1.Value);
 
-            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
-            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255, 0);
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255, 0);
 
             int c = 0;
             foreach (Char move in paths)
@@ -195,13 +201,20 @@ namespace WindowsFormsApp1
                 }
                 if (solve.m.getVertex(start).GetStatusTreasure())
                 {
-                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Yellow;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
                 await Task.Delay(trackBar1.Value);
-                dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
+                if (colorList.Contains(solve.m.getVertex(start.x, start.y))){
+                    colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))]++;
+                } else {
+                    colorList.Add(solve.m.getVertex(start.x, start.y));
+                    colorCount.Add(0);
+                }
+
+                dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0);
                 if (!solve.m.getVertex(start).GetStatusTreasure())
-                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0);
             }
 
 
@@ -236,13 +249,19 @@ namespace WindowsFormsApp1
             var runTime = endTime - startTime;
             Vertex start = solver.m.getStartingPoint(solver.m.getMap());
 
+            List <Vertex> colorList = new List<Vertex>();
+            List <int> colorCount = new List<int>();
+
+            colorList.Add(solver.m.getVertex(start.x, start.y));
+            colorCount.Add(0);
+
             dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
             dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
 
             await Task.Delay(trackBar1.Value);
 
-            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
-            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255, 0);
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255, 0);
 
             int c = 0;
             foreach (Char move in path)
@@ -278,9 +297,15 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
                 await Task.Delay(trackBar1.Value);
-                dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Green;
+                if (colorList.Contains(solver.m.getVertex(start.x, start.y))) {
+                    colorCount[colorList.IndexOf(solver.m.getVertex(start.x, start.y))]++;
+                } else {
+                    colorList.Add(solver.m.getVertex(start.x, start.y));
+                    colorCount.Add(0);
+                }
+                dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solver.m.getVertex(start.x, start.y))] * 50 > 0 ? 255 - colorCount[colorList.IndexOf(solver.m.getVertex(start.x, start.y))] * 50 : 0, 0);
                 if (!solver.m.getVertex(start).GetStatusTreasure())
-                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Green;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solver.m.getVertex(start.x, start.y))] * 50 > 0 ? 255 - colorCount[colorList.IndexOf(solver.m.getVertex(start.x, start.y))] * 50 : 0, 0);
             }
 
 

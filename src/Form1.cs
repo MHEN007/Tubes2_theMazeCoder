@@ -31,8 +31,6 @@ namespace WindowsFormsApp1
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.ScrollBars = ScrollBars.None;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AllowUserToResizeRows = false;
@@ -40,8 +38,6 @@ namespace WindowsFormsApp1
             dataGridView1.Enabled = false;
             dataGridView1.ScrollBars = ScrollBars.None;
             dataGridView1.ReadOnly = true;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.AllowUserToResizeColumns = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -108,6 +104,8 @@ namespace WindowsFormsApp1
             {
                 isButtonClicked = true;
                 button.Enabled = false;
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Clear();
                 OpenFileDialog openFileDialog1 = new OpenFileDialog();
                 openFileDialog1.Filter = "Text files (*.txt)|*.txt";
                 openFileDialog1.Title = "Select a maze file";
@@ -144,6 +142,7 @@ namespace WindowsFormsApp1
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error loading maze: " + ex.Message);
+                        return;
                     }
                 }
             }

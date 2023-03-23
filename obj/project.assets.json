@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Matthew\\.nuget\\packages\\": {}
+    "C:\\Users\\wilda\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
+      "projectUniqueName": "C:\\Users\\wilda\\OneDrive - Institut Teknologi Bandung\\Documents\\KULIAH WILLY\\Tingkat 2\\Stima\\TUBES\\Tubes 2\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
       "projectName": "Tubes2_theMazeCoder",
-      "projectPath": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
-      "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\obj\\",
+      "projectPath": "C:\\Users\\wilda\\OneDrive - Institut Teknologi Bandung\\Documents\\KULIAH WILLY\\Tingkat 2\\Stima\\TUBES\\Tubes 2\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
+      "packagesPath": "C:\\Users\\wilda\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\wilda\\OneDrive - Institut Teknologi Bandung\\Documents\\KULIAH WILLY\\Tingkat 2\\Stima\\TUBES\\Tubes 2\\Tubes2_theMazeCoder\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\wilda\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

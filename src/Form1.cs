@@ -248,6 +248,129 @@ namespace WindowsFormsApp1
             textBox5.Text = solve.nodesChecked.ToString();
         }
 
+        private string removeB (string path)
+        {
+            string newPath = "";
+            foreach (char c in path)
+            {
+                if (c != 'B')
+                    newPath += c;
+            }
+            return newPath;
+        }
+
+        /* DFS with backtrack */
+        private async void DFSV2()
+        {
+            if (!isMazePathLoaded())
+            {
+                MessageBox.Show("Please load a maze first", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            textBox2.Text = "0";
+            textBox3.Text = "0";
+            textBox4.Text = "";
+            textBox5.Text = "0";
+            LoadMazeData(mazepath);
+
+            Solver solve = new Solver(mazepath);
+            Vertex start = solve.m.getStartingPoint(solve.m.getMap());
+
+            List<Vertex> colorList = new List<Vertex>();
+            List<int> colorCount = new List<int>();
+
+            colorList.Add(solve.m.getVertex(start.x, start.y));
+            colorCount.Add(0);
+
+            textBox2.Text = solve.nodesChecked.ToString();
+
+            var startTime = DateTime.Now;
+            string paths = solve.DFSV2();
+            var endTime = DateTime.Now;
+            var runTime = endTime - startTime;
+
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+
+            await Task.Delay(trackBar1.Value);
+
+            dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255, 0);
+            dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255, 0);
+
+            int c = 0;
+            bool uselessPath = false;
+            foreach (Char move in paths)
+            {
+                if (move != 'B')
+                    c++;
+
+                if (move == 'R')
+                {
+                    start.x++;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                    uselessPath = false;
+                }
+                if (move == 'L')
+                {
+                    start.x--;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                    uselessPath = false;
+                }
+                if (move == 'U')
+                {
+                    start.y--;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                    uselessPath = false;
+                }
+                if (move == 'D')
+                {
+                    start.y++;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                    uselessPath = false;
+                }
+                if (move == 'B')
+                {
+                    uselessPath = true;
+                }
+                if (solve.m.getVertex(start).GetStatusTreasure())
+                {
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
+                    dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
+                }
+                await Task.Delay(trackBar1.Value);
+                if (colorList.Contains(solve.m.getVertex(start.x, start.y))){
+                    colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))]++;
+                } else {
+                    colorList.Add(solve.m.getVertex(start.x, start.y));
+                    colorCount.Add(0);
+                }
+
+                if (!uselessPath)
+                {
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0);
+                    if (!solve.m.getVertex(start).GetStatusTreasure())
+                        dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0);
+                } else {
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0, 0);
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0, 0);
+                }
+            }
+
+
+            textBox2.Text = c.ToString();
+            int run = runTime.Milliseconds;
+            textBox3.Text = run.ToString();
+
+            textBox4.Text = removeB(paths);
+
+            textBox5.Text = solve.nodesChecked.ToString();
+        }
+
         /* BFS */
         private async void BFS()
         {

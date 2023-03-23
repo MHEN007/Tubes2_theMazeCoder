@@ -142,6 +142,8 @@ namespace WindowsFormsApp1
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error loading maze: " + ex.Message);
+                        isButtonClicked = false;
+                        button.Enabled = true;
                         return;
                     }
                 }
@@ -162,13 +164,15 @@ namespace WindowsFormsApp1
 
             textBox2.Text = "0";
             textBox3.Text = "0";
+            textBox4.Text = "";
+            textBox5.Text = "0";
             LoadMazeData(mazepath);
 
             Solver solve = new Solver(mazepath);
             Vertex start = solve.m.getStartingPoint(solve.m.getMap());
 
-            List <Vertex> colorList = new List<Vertex>();
-            List <int> colorCount = new List<int>();
+            List<Vertex> colorList = new List<Vertex>();
+            List<int> colorCount = new List<int>();
 
             colorList.Add(solve.m.getVertex(start.x, start.y));
             colorCount.Add(0);
@@ -254,6 +258,8 @@ namespace WindowsFormsApp1
             }
             /* Load ulang */
             textBox3.Text = "0";
+            textBox4.Text = "";
+            textBox5.Text = "0";
             LoadMazeData(mazepath);
 
             Solver solver = new Solver(mazepath);
@@ -266,8 +272,8 @@ namespace WindowsFormsApp1
             var runTime = endTime - startTime;
             Vertex start = solver.m.getStartingPoint(solver.m.getMap());
 
-            List <Vertex> colorList = new List<Vertex>();
-            List <int> colorCount = new List<int>();
+            List<Vertex> colorList = new List<Vertex>();
+            List<int> colorCount = new List<int>();
 
             colorList.Add(solver.m.getVertex(start.x, start.y));
             colorCount.Add(0);
@@ -310,13 +316,16 @@ namespace WindowsFormsApp1
                 }
                 if (solver.m.getVertex(start).GetStatusTreasure())
                 {
-                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Yellow;
+                    dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.Blue;
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
                 await Task.Delay(trackBar1.Value);
-                if (colorList.Contains(solver.m.getVertex(start.x, start.y))) {
+                if (colorList.Contains(solver.m.getVertex(start.x, start.y)))
+                {
                     colorCount[colorList.IndexOf(solver.m.getVertex(start.x, start.y))]++;
-                } else {
+                }
+                else
+                {
                     colorList.Add(solver.m.getVertex(start.x, start.y));
                     colorCount.Add(0);
                 }
@@ -380,10 +389,6 @@ namespace WindowsFormsApp1
                 {
                     BFS();
                 }
-                else if (radioButton3.Checked)
-                {
-                    // TSP();
-                }
             }
             isButtonClicked = false;
             button.Enabled = true;
@@ -395,6 +400,11 @@ namespace WindowsFormsApp1
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
         {
 
         }

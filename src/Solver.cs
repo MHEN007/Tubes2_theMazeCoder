@@ -99,6 +99,7 @@ public class Solver
                 treasureFound++;
             }
 
+            /* Proses pencarian titik tetangga yang dapat dikunjungi */
             if (this.m.isDownValid(current, this.m.getMap(), visited)) {
                 down = this.m.getVertex(current.x, current.y + 1);
                 stack.Push(down);
@@ -195,7 +196,7 @@ public class Solver
         nodesChecked = 0;
         Queue<String> queue = new Queue<String>();
         queue.Enqueue("");
-        String moves = "";
+        String paths = "";
         /* Proses: Dengan queue, iterasikan gerakan yang memungkinkan dari suatu titik
          * Jika ada yang bisa digerakkan, masukkan ke pathnya dan masukkan ke stack
          * visited nodes.
@@ -204,20 +205,104 @@ public class Solver
          * Pada proses pencarian, jika ditemukan node treasure, kosongkan visited Nodes dan catat
          * lokasi treasure
          */
-        while (!FindTreasure(moves))
+        while (!FindTreasure(paths))
         {
-            moves = queue.Dequeue();
+            paths = queue.Dequeue();
             for (int i = 0; i < 4; i++)
             {
-                if (ValidMove(moves + move[i]))
+                Vertex start = m.getStartingPoint(m.getMap());
+                Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
+                Stack<Vertex> Treasure = new Stack<Vertex>();
+                bool notValid = false;
+
+                /* Periksa untuk setiap gerakan, apakah valid atau tidak
+                 * Jika valid, enqueue ke queue
+                 * Gerakan valid: Tidak melanggar peta, belum mengunjungi node
+                 */
+                foreach (Char move in paths + move[i])
                 {
-                    queue.Enqueue(moves + move[i]);
+                    if (move == 'R')
+                    {
+                        if (!m.isRightValid(start, m.getMap(), AlreadyVisited))
+                        {
+                            notValid = true;
+                            break;
+                        }
+                        else
+                        {
+                            start.x += 1;
+                            if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
+                            {
+                                AlreadyVisited.Clear();
+                                Treasure.Push(m.getVertex(start));
+                            }
+                            AlreadyVisited.Push(m.getVertex(start));
+                        }
+                    }
+                    else if (move == 'L')
+                    {
+                        if (!m.isLeftValid(start, m.getMap(), AlreadyVisited))
+                        {
+                            notValid = true;
+                            break;
+                        }
+                        else
+                        {
+                            start.x -= 1;
+                            if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
+                            {
+                                AlreadyVisited.Clear();
+                                Treasure.Push(m.getVertex(start));
+                            }
+                            AlreadyVisited.Push(m.getVertex(start));
+                        }
+                    }
+                    else if (move == 'U')
+                    {
+                        if (!m.isUpValid(start, m.getMap(), AlreadyVisited))
+                        {
+                            notValid = true;
+                            break;
+                        }
+                        else
+                        {
+                            start.y -= 1;
+                            if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
+                            {
+                                AlreadyVisited.Clear();
+                                Treasure.Push(m.getVertex(start));
+                            }
+                            AlreadyVisited.Push(m.getVertex(start));
+                        }
+                    }
+                    else if (move == 'D')
+                    {
+                        if (!m.isDownValid(start, m.getMap(), AlreadyVisited))
+                        {
+                            notValid = true;
+                            break;
+                        }
+                        else
+                        {
+                            start.y += 1;
+                            if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
+                            {
+                                AlreadyVisited.Clear();
+                                Treasure.Push(m.getVertex(start));
+                            }
+                            AlreadyVisited.Push(m.getVertex(start));
+                        }
+                    }
+                }
+                if (!notValid)
+                {
+                    queue.Enqueue(paths + move[i]);
                 }
             }
             nodesChecked++;
         }
         nodesChecked--;
-        return moves;
+        return paths;
     }
 
     /* Untuk menentukan apakah gerakan sudah dapat memenuhi syarat
@@ -263,87 +348,4 @@ public class Solver
             return false;
         }
     }
-
-    /* Untuk menentukan apakah gerakan sudah valid atau belum
-     * Gerakan valid: Tidak melanggar peta, belum mengunjungi node
-     */
-    public bool ValidMove(String moves)
-    {
-        Vertex start = m.getStartingPoint(m.getMap());
-        Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
-        Stack<Vertex> Treasure = new Stack<Vertex>();
-        foreach (Char move in moves)
-        {
-            if (move == 'R')
-            {
-                if (!m.isRightValid(start, m.getMap(), AlreadyVisited))
-                {
-                    return false;
-                }
-                else
-                {
-                    start.x += 1;
-                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
-                    {
-                        AlreadyVisited.Clear();
-                        Treasure.Push(m.getVertex(start));
-                    }
-                    AlreadyVisited.Push(m.getVertex(start));
-                }
-            }
-            else if (move == 'L')
-            {
-                if (!m.isLeftValid(start, m.getMap(), AlreadyVisited))
-                {
-                    return false;
-                }
-                else
-                {
-                    start.x -= 1;
-                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
-                    {
-                        AlreadyVisited.Clear();
-                        Treasure.Push(m.getVertex(start));
-                    }
-                    AlreadyVisited.Push(m.getVertex(start));
-                }
-            }
-            else if (move == 'U')
-            {
-                if (!m.isUpValid(start, m.getMap(), AlreadyVisited))
-                {
-                    return false;
-                }
-                else
-                {
-                    start.y -= 1;
-                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
-                    {
-                        AlreadyVisited.Clear();
-                        Treasure.Push(m.getVertex(start));
-                    }
-                    AlreadyVisited.Push(m.getVertex(start));
-                }
-            }
-            else if (move == 'D')
-            {
-                if (!m.isDownValid(start, m.getMap(), AlreadyVisited))
-                {
-                    return false;
-                }
-                else
-                {
-                    start.y += 1;
-                    if (m.getVertex(start).GetStatusTreasure() && !Treasure.Contains(m.getVertex(start)))
-                    {
-                        AlreadyVisited.Clear();
-                        Treasure.Push(m.getVertex(start));
-                    }
-                    AlreadyVisited.Push(m.getVertex(start));
-                }
-            }
-        }
-        return true;
-    }
-
 }

@@ -1,2 +1,16 @@
 .vs/
-# obj/
+obj/
+*.aux
+*.log
+*.out
+*.gz
+*.tex
+*.toc
+doc/*.txt
+*.jpg
+*.png
+*.bib
+*.bbl
+*.blg
+*.dvi
+*.pdf

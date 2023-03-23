@@ -226,9 +226,12 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
                 await Task.Delay(trackBar1.Value);
-                if (colorList.Contains(solve.m.getVertex(start.x, start.y))){
+                if (colorList.Contains(solve.m.getVertex(start.x, start.y)))
+                {
                     colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))]++;
-                } else {
+                }
+                else
+                {
                     colorList.Add(solve.m.getVertex(start.x, start.y));
                     colorCount.Add(0);
                 }
@@ -248,7 +251,7 @@ namespace WindowsFormsApp1
             textBox5.Text = solve.nodesChecked.ToString();
         }
 
-        private string removeB (string path)
+        private string removeB(string path)
         {
             string newPath = "";
             foreach (char c in path)
@@ -343,9 +346,12 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[start.y].Cells[start.x].Value = "Treasure";
                 }
                 await Task.Delay(trackBar1.Value);
-                if (colorList.Contains(solve.m.getVertex(start.x, start.y))){
+                if (colorList.Contains(solve.m.getVertex(start.x, start.y)))
+                {
                     colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))]++;
-                } else {
+                }
+                else
+                {
                     colorList.Add(solve.m.getVertex(start.x, start.y));
                     colorCount.Add(0);
                 }
@@ -355,7 +361,9 @@ namespace WindowsFormsApp1
                     dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0);
                     if (!solve.m.getVertex(start).GetStatusTreasure())
                         dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(0, 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0);
-                } else {
+                }
+                else
+                {
                     dataGridView1.Rows[start.y].Cells[start.x].Style.BackColor = System.Drawing.Color.FromArgb(255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0, 0);
                     dataGridView1.Rows[start.y].Cells[start.x].Style.ForeColor = System.Drawing.Color.FromArgb(255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 > 0 ? 255 - colorCount[colorList.IndexOf(solve.m.getVertex(start.x, start.y))] * 60 : 0, 0, 0);
                 }
@@ -512,6 +520,10 @@ namespace WindowsFormsApp1
                 {
                     BFS();
                 }
+                else if (radioButton3.Checked)
+                {
+                    DFSV2();
+                }
             }
             isButtonClicked = false;
             button.Enabled = true;
@@ -530,6 +542,19 @@ namespace WindowsFormsApp1
         private void pictureBox4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
         }
     }
 }

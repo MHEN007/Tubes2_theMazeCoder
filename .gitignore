@@ -7,10 +7,10 @@ obj/
 *.tex
 *.toc
 doc/*.txt
-*.jpg
-*.png
+doc/*.jpg
+doc/*.png
 *.bib
 *.bbl
 *.blg
 *.dvi
-*.pdf
+# *.pdf

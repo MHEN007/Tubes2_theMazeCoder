@@ -325,8 +325,7 @@ public class Solver
         }
         while (reversePath.Count > 0) {
             paths += reversePath.Pop();
-        }   
-        MessageBox.Show("Path : " + paths);
+        }
         return paths;
     }
 

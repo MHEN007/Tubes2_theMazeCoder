@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\acer\\.nuget\\packages\\": {}
+    "C:\\Users\\Matthew\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\acer\\Documents\\OOP\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
+      "projectUniqueName": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
       "projectName": "Tubes2_theMazeCoder",
-      "projectPath": "C:\\Users\\acer\\Documents\\OOP\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
-      "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\acer\\Documents\\OOP\\Tubes2_theMazeCoder\\obj\\",
+      "projectPath": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\Tubes2_theMazeCoder.csproj",
+      "packagesPath": "C:\\Users\\Matthew\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Matthew\\Documents\\Institut Teknologi Bandung\\Semester 4\\Strategi Algoritma\\Tubes2_theMazeCoder\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Matthew\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

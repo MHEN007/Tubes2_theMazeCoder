@@ -67,15 +67,15 @@ namespace WindowsFormsApp1
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.ColumnHeadersVisible = false;
             dataGridView1.GridColor = Color.White;
-            dataGridView1.Location = new Point(392, 45);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
+            dataGridView1.Location = new Point(580, 59);
+            dataGridView1.Margin = new Padding(4, 5, 4, 5);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.RowTemplate.Height = 24;
             dataGridView1.ScrollBars = ScrollBars.None;
-            dataGridView1.Size = new Size(420, 420);
+            dataGridView1.Size = new Size(525, 525);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -89,10 +89,10 @@ namespace WindowsFormsApp1
             button1.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button1.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(10, 143);
+            button1.Location = new Point(102, 182);
             button1.Margin = new Padding(0);
             button1.Name = "button1";
-            button1.Size = new Size(159, 53);
+            button1.Size = new Size(199, 66);
             button1.TabIndex = 1;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
@@ -103,11 +103,11 @@ namespace WindowsFormsApp1
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point);
             textBox1.ForeColor = Color.Black;
-            textBox1.Location = new Point(171, 155);
+            textBox1.Location = new Point(304, 197);
             textBox1.Margin = new Padding(2);
             textBox1.Name = "textBox1";
             textBox1.ReadOnly = true;
-            textBox1.Size = new Size(120, 23);
+            textBox1.Size = new Size(150, 28);
             textBox1.TabIndex = 2;
             textBox1.TextAlign = HorizontalAlignment.Center;
             textBox1.TextChanged += textBox1_TextChanged;
@@ -117,10 +117,10 @@ namespace WindowsFormsApp1
             pictureBox1.BackColor = Color.Transparent;
             pictureBox1.BackgroundImage = (Image)resources.GetObject("pictureBox1.BackgroundImage");
             pictureBox1.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox1.Location = new Point(6, 40);
+            pictureBox1.Location = new Point(98, 53);
             pictureBox1.Margin = new Padding(0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(345, 101);
+            pictureBox1.Size = new Size(431, 126);
             pictureBox1.TabIndex = 5;
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
@@ -129,10 +129,10 @@ namespace WindowsFormsApp1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.White;
-            label1.Location = new Point(392, 486);
+            label1.Location = new Point(580, 611);
             label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(45, 20);
+            label1.Size = new Size(55, 25);
             label1.TabIndex = 6;
             label1.Text = "Steps";
             label1.Click += label1_Click;
@@ -141,21 +141,21 @@ namespace WindowsFormsApp1
             // 
             textBox2.BackColor = Color.White;
             textBox2.BorderStyle = BorderStyle.None;
-            textBox2.Location = new Point(439, 486);
+            textBox2.Location = new Point(639, 611);
             textBox2.Margin = new Padding(2);
             textBox2.Name = "textBox2";
             textBox2.ReadOnly = true;
-            textBox2.Size = new Size(61, 20);
+            textBox2.Size = new Size(76, 24);
             textBox2.TabIndex = 7;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.White;
-            label2.Location = new Point(633, 486);
+            label2.Location = new Point(881, 611);
             label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(93, 20);
+            label2.Size = new Size(112, 25);
             label2.TabIndex = 10;
             label2.Text = "Runtime(ms)";
             label2.TextAlign = ContentAlignment.TopCenter;
@@ -165,11 +165,11 @@ namespace WindowsFormsApp1
             // 
             textBox3.BackColor = Color.White;
             textBox3.BorderStyle = BorderStyle.None;
-            textBox3.Location = new Point(728, 486);
+            textBox3.Location = new Point(1000, 611);
             textBox3.Margin = new Padding(2);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
-            textBox3.Size = new Size(65, 20);
+            textBox3.Size = new Size(81, 24);
             textBox3.TabIndex = 11;
             // 
             // radioButton1
@@ -177,9 +177,10 @@ namespace WindowsFormsApp1
             radioButton1.AutoSize = true;
             radioButton1.BackColor = Color.Transparent;
             radioButton1.BackgroundImageLayout = ImageLayout.Zoom;
-            radioButton1.Location = new Point(59, 219);
+            radioButton1.Location = new Point(164, 277);
+            radioButton1.Margin = new Padding(4, 4, 4, 4);
             radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(17, 16);
+            radioButton1.Size = new Size(21, 20);
             radioButton1.TabIndex = 12;
             radioButton1.TabStop = true;
             radioButton1.UseVisualStyleBackColor = false;
@@ -189,9 +190,10 @@ namespace WindowsFormsApp1
             // 
             radioButton2.AutoSize = true;
             radioButton2.BackColor = Color.Transparent;
-            radioButton2.Location = new Point(60, 289);
+            radioButton2.Location = new Point(165, 364);
+            radioButton2.Margin = new Padding(4, 4, 4, 4);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(17, 16);
+            radioButton2.Size = new Size(21, 20);
             radioButton2.TabIndex = 13;
             radioButton2.TabStop = true;
             radioButton2.UseVisualStyleBackColor = false;
@@ -202,9 +204,10 @@ namespace WindowsFormsApp1
             pictureBox2.BackColor = Color.Transparent;
             pictureBox2.BackgroundImage = (Image)resources.GetObject("pictureBox2.BackgroundImage");
             pictureBox2.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox2.Location = new Point(82, 199);
+            pictureBox2.Location = new Point(192, 252);
+            pictureBox2.Margin = new Padding(4, 4, 4, 4);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(180, 62);
+            pictureBox2.Size = new Size(225, 78);
             pictureBox2.TabIndex = 15;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
@@ -214,9 +217,10 @@ namespace WindowsFormsApp1
             pictureBox3.BackColor = Color.Transparent;
             pictureBox3.BackgroundImage = (Image)resources.GetObject("pictureBox3.BackgroundImage");
             pictureBox3.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox3.Location = new Point(82, 267);
+            pictureBox3.Location = new Point(192, 337);
+            pictureBox3.Margin = new Padding(4, 4, 4, 4);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(180, 62);
+            pictureBox3.Size = new Size(225, 78);
             pictureBox3.TabIndex = 16;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
@@ -231,9 +235,10 @@ namespace WindowsFormsApp1
             button2.FlatAppearance.MouseDownBackColor = Color.Transparent;
             button2.FlatAppearance.MouseOverBackColor = Color.Transparent;
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(13, 416);
+            button2.Location = new Point(106, 523);
+            button2.Margin = new Padding(4, 4, 4, 4);
             button2.Name = "button2";
-            button2.Size = new Size(178, 77);
+            button2.Size = new Size(222, 96);
             button2.TabIndex = 18;
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click_1;
@@ -242,11 +247,11 @@ namespace WindowsFormsApp1
             // 
             textBox4.BackColor = Color.White;
             textBox4.BorderStyle = BorderStyle.None;
-            textBox4.Location = new Point(392, 524);
+            textBox4.Location = new Point(580, 658);
             textBox4.Margin = new Padding(2);
             textBox4.Name = "textBox4";
             textBox4.ReadOnly = true;
-            textBox4.Size = new Size(401, 20);
+            textBox4.Size = new Size(501, 24);
             textBox4.TabIndex = 19;
             textBox4.Text = "Paths";
             textBox4.TextChanged += textBox4_TextChanged;
@@ -255,10 +260,10 @@ namespace WindowsFormsApp1
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.White;
-            label3.Location = new Point(507, 486);
+            label3.Location = new Point(724, 611);
             label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(52, 20);
+            label3.Size = new Size(64, 25);
             label3.TabIndex = 20;
             label3.Text = "Nodes";
             // 
@@ -266,22 +271,23 @@ namespace WindowsFormsApp1
             // 
             textBox5.BackColor = Color.White;
             textBox5.BorderStyle = BorderStyle.None;
-            textBox5.Location = new Point(561, 486);
+            textBox5.Location = new Point(791, 611);
             textBox5.Margin = new Padding(2);
             textBox5.Name = "textBox5";
             textBox5.ReadOnly = true;
-            textBox5.Size = new Size(61, 20);
+            textBox5.Size = new Size(76, 24);
             textBox5.TabIndex = 21;
             // 
             // trackBar1
             // 
             trackBar1.BackColor = Color.White;
             trackBar1.Cursor = Cursors.Hand;
-            trackBar1.Location = new Point(200, 419);
+            trackBar1.Location = new Point(340, 527);
+            trackBar1.Margin = new Padding(4, 4, 4, 4);
             trackBar1.Maximum = 1000;
             trackBar1.Minimum = 100;
             trackBar1.Name = "trackBar1";
-            trackBar1.Size = new Size(130, 56);
+            trackBar1.Size = new Size(162, 69);
             trackBar1.TabIndex = 22;
             trackBar1.TickStyle = TickStyle.Both;
             trackBar1.Value = 100;
@@ -292,9 +298,10 @@ namespace WindowsFormsApp1
             pictureBox5.BackColor = Color.Transparent;
             pictureBox5.BackgroundImage = (Image)resources.GetObject("pictureBox5.BackgroundImage");
             pictureBox5.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBox5.Location = new Point(82, 335);
+            pictureBox5.Location = new Point(192, 422);
+            pictureBox5.Margin = new Padding(4, 4, 4, 4);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(180, 62);
+            pictureBox5.Size = new Size(225, 78);
             pictureBox5.TabIndex = 24;
             pictureBox5.TabStop = false;
             pictureBox5.Click += pictureBox5_Click;
@@ -303,21 +310,22 @@ namespace WindowsFormsApp1
             // 
             radioButton3.AutoSize = true;
             radioButton3.BackColor = Color.Transparent;
-            radioButton3.Location = new Point(60, 359);
+            radioButton3.Location = new Point(165, 452);
+            radioButton3.Margin = new Padding(4, 4, 4, 4);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(17, 16);
+            radioButton3.Size = new Size(21, 20);
             radioButton3.TabIndex = 25;
             radioButton3.TabStop = true;
             radioButton3.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.InactiveBorder;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(942, 558);
+            ClientSize = new Size(1178, 698);
             Controls.Add(radioButton3);
             Controls.Add(pictureBox5);
             Controls.Add(trackBar1);
@@ -337,9 +345,9 @@ namespace WindowsFormsApp1
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(pictureBox1);
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             Name = "Form1";
-            Padding = new Padding(10);
+            Padding = new Padding(12, 12, 12, 12);
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

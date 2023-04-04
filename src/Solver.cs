@@ -349,7 +349,9 @@ public class Solver
     public string BFS()
     {
         nodesChecked = 0;
+        bool reset = false;
         Queue<String> queue = new Queue<String>();
+        Stack<Vertex> Treasure = new Stack<Vertex>();
         queue.Enqueue("");
         String paths = "";
         /* Proses: Dengan queue, iterasikan gerakan yang memungkinkan dari suatu titik
@@ -367,7 +369,7 @@ public class Solver
             {
                 Vertex start = m.getStartingPoint(m.getMap());
                 Stack<Vertex> AlreadyVisited = new Stack<Vertex>();
-                Stack<Vertex> Treasure = new Stack<Vertex>();
+                String temp = "";
                 bool notValid = false;
 
                 /* Periksa untuk setiap gerakan, apakah valid atau tidak
@@ -390,8 +392,17 @@ public class Solver
                             {
                                 AlreadyVisited.Clear();
                                 Treasure.Push(m.getVertex(start));
+                                queue.Clear();
+                                queue.Enqueue(temp + 'R');
+                                reset = true;
+                                break;
+                            }
+                            else if (m.getVertex(start).GetStatusTreasure())
+                            {
+                                AlreadyVisited.Clear();
                             }
                             AlreadyVisited.Push(m.getVertex(start));
+                            temp += 'R';
                         }
                     }
                     else if (move == 'L')
@@ -408,8 +419,17 @@ public class Solver
                             {
                                 AlreadyVisited.Clear();
                                 Treasure.Push(m.getVertex(start));
+                                queue.Clear();
+                                queue.Enqueue(temp + move);
+                                reset = true;
+                                break;
+                            }
+                            else if (m.getVertex(start).GetStatusTreasure())
+                            {
+                                AlreadyVisited.Clear();
                             }
                             AlreadyVisited.Push(m.getVertex(start));
+                            temp += 'L';
                         }
                     }
                     else if (move == 'U')
@@ -426,8 +446,17 @@ public class Solver
                             {
                                 AlreadyVisited.Clear();
                                 Treasure.Push(m.getVertex(start));
+                                queue.Clear();
+                                queue.Enqueue(temp + move);
+                                reset = true;
+                                break;
+                            }
+                            else if (m.getVertex(start).GetStatusTreasure())
+                            {
+                                AlreadyVisited.Clear();
                             }
                             AlreadyVisited.Push(m.getVertex(start));
+                            temp += 'U';
                         }
                     }
                     else if (move == 'D')
@@ -444,10 +473,24 @@ public class Solver
                             {
                                 AlreadyVisited.Clear();
                                 Treasure.Push(m.getVertex(start));
+                                queue.Clear();
+                                queue.Enqueue(temp + move);
+                                reset = true;
+                                break;
+                            }
+                            else if (m.getVertex(start).GetStatusTreasure())
+                            {
+                                AlreadyVisited.Clear();
                             }
                             AlreadyVisited.Push(m.getVertex(start));
+                            temp += 'D';
                         }
                     }
+                }
+                if (reset)
+                {
+                    reset = false;
+                    break;
                 }
                 if (!notValid)
                 {
